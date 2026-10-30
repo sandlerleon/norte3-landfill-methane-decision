@@ -1,0 +1,261 @@
+{
+ "n": 51,
+ "all_passed": true,
+ "tests": [
+  {
+   "name": "units: 1 Nm3/h CH4 = 6.281 t/yr",
+   "passed": true,
+   "info": "6.28092"
+  },
+  {
+   "name": "units: carbon per Nm3 CH4 = 0.536 kg",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "units: annuity factor -> T as r -> 0",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "units: capital recovery x annuity = 1",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "LHS mean Qcoll",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "LHS mean L0",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "lognormal price multiplier mean 1",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "Iman-Conover induces target rank correlation (0.7)",
+   "passed": true,
+   "info": "0.684"
+  },
+  {
+   "name": "screening: CH4 recovered 475 Nm3/h",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "screening: 37.8 GWh/yr",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "cover: CH4 closure (surface = emitted + oxidised + captured)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "cover: avoided(s_c*) = 0",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "limit: barrier that blocks nothing avoids nothing",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "limit: unchanged oxidation gives s_c b (d_f - ox)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S0: CH4 closes",
+   "passed": true,
+   "info": "2.2e-16"
+  },
+  {
+   "name": "balance S0: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S1: CH4 closes",
+   "passed": true,
+   "info": "2.2e-16"
+  },
+  {
+   "name": "balance S1: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S2: CH4 closes",
+   "passed": true,
+   "info": "3.3e-16"
+  },
+  {
+   "name": "balance S2: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S4: CH4 closes",
+   "passed": true,
+   "info": "3.3e-16"
+  },
+  {
+   "name": "balance S4: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S6: CH4 closes",
+   "passed": true,
+   "info": "3.3e-16"
+  },
+  {
+   "name": "balance S6: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S6b: CH4 closes",
+   "passed": true,
+   "info": "3.3e-16"
+  },
+  {
+   "name": "balance S6b: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "balance S7: CH4 closes",
+   "passed": true,
+   "info": "3.3e-16"
+  },
+  {
+   "name": "balance S7: carbon closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u6: CH4 closes (offered = destroyed + emitted + exported)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u6: energy closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u6b: CH4 closes (offered = destroyed + emitted + exported)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u6b: energy closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u7: CH4 closes (offered = destroyed + emitted + exported)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u7: energy closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u0: CH4 closes (offered = destroyed + emitted + exported)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "upgrader u0: energy closes",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "climate S1: balance-based = incremental (GWP100)",
+   "passed": true,
+   "info": "6.26e-09"
+  },
+  {
+   "name": "climate S2: balance-based = incremental (GWP100)",
+   "passed": true,
+   "info": "9.08e-09"
+  },
+  {
+   "name": "climate S6: balance-based = incremental (GWP100)",
+   "passed": true,
+   "info": "9.31e-09"
+  },
+  {
+   "name": "climate S6b: balance-based = incremental (GWP100)",
+   "passed": true,
+   "info": "7.57e-09"
+  },
+  {
+   "name": "upgrading hand case: avoided = NG displaced + flare slip - compression",
+   "passed": true,
+   "info": "10347.0 vs 10347.0"
+  },
+  {
+   "name": "benchmark: power NPV = explicit cash-flow sum",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "limit: zero gas prices -> biomethane NPV < 0",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "paint eta* gives LCOE parity",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "window likelihood: all resampled draws inside 18-38 t/h",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "posterior draws are physically consistent",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "deterministic for fixed seed",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "temporal: steady generation reproduces the annuity NPV (pw)",
+   "passed": true,
+   "info": "1.5e-15"
+  },
+  {
+   "name": "temporal: steady generation reproduces the annuity NPV (up)",
+   "passed": true,
+   "info": "1.0e-15"
+  },
+  {
+   "name": "FOD analytic: k -> 0 limit is (a+t)/a",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "standard error of P(NPV>0) < 0.01 (on the effective sample size)",
+   "passed": true,
+   "info": "ESS=149944 se=0.0003"
+  }
+ ]
+}

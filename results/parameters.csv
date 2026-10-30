@@ -1,0 +1,88 @@
+name,distribution,arguments,tag,description
+Qcoll22,tri,"[12000, 13100, 14000]",A,"collected biogas around 2022 (satellite period), Nm3/h; 13,100 peak in 2013, 13,800 in 2025"
+Awaste,tri,"[14000, 16500, 19000]",R,"waste to Norte III, t/day (~18,000 reported)"
+L0,tri,"[50, 100, 170]",L,"CH4 generation potential, Nm3 CH4 per t waste (inventory 100, CAA 170)"
+fss,tri,"[0.3, 0.6, 0.95]",A,fraction of steady-state generation reached (age/decay/lag)
+xCH4,tri,"[0.42, 0.5, 0.57]",A,CH4 fraction of landfill gas
+ox,tri,"[0.05, 0.15, 0.35]",L,cover methane oxidation fraction
+g_t,tri,"[0.95, 1.05, 1.15]",A,generation 2025-26 relative to 2022
+Qcoll,tri,"[13000, 14800, 16500]",R,"collected biogas 2025-26, Nm3/h (13,800 in 2025; 16,000 Apr 2026)"
+P_el,tri,"[23, 28, 33]",R,"installed biogas power, MW (23 in 2020; 33 planned 2026)"
+CF_el,tri,"[0.7, 0.85, 0.93]",A,engine capacity factor
+eta_el,tri,"[0.36, 0.4, 0.43]",L,engine electrical efficiency
+d_f,tri,"[0.95, 0.98, 0.995]",L,flare/engine CH4 destruction efficiency
+dEta1,tri,"[0.0, 0.02, 0.06]",A,S1 absolute gain in collection efficiency (of generation)
+capex_s1,tri,"[0.5, 1.5, 4.0]",A,"S1 capex, MUSD"
+opex_s1,tri,"[0.15, 0.4, 1.0]",A,"S1 opex, MUSD/yr"
+f_hot,tri,"[0.1, 0.25, 0.5]",A,flux fraction passing covered area
+h_e,tri,"[1.5, 3.0, 6.0]",A,hot-spot flux enrichment over mean
+A_act,tri,"[100, 200, 400]",A,"actively emitting area, ha"
+eps_conv,tri,"[0.3, 0.6, 0.85]",A,conventional cover: fraction of arriving CH4 blocked
+eps_coat,tri,"[0.1, 0.45, 0.85]",A,experimental coating: fraction blocked
+s_c,tri,"[0.05, 0.35, 0.75]",A,share of blocked CH4 captured by extraction
+delta_ox,tri,"[0.2, 0.6, 1.0]",A,fractional loss of oxidation under cover
+rho_r,uni,"[0.0, 1.0]",A,oxidation of redirected gas relative to ox
+c_conv,tri,"[80, 150, 300]",A,"conventional cover cost, kUSD/ha"
+c_coat,tri,"[100, 250, 700]",A,"experimental coating cost, kUSD/ha"
+om_cov,tri,"[0.015, 0.03, 0.05]",A,"cover O&M, fraction of capex per yr"
+life_conv,tri,"[15, 25, 30]",A,"conventional cover life, yr"
+life_coat,tri,"[4, 8, 15]",A,"coating life, yr"
+r,tri,"[0.08, 0.12, 0.18]",B,"real USD discount rate (EMBI 2025: 561 to >1,200 bps; 569 bps Dec 2025)"
+f_imp,tri,"[0.5, 0.7, 0.9]",A,imported share of equipment capex
+duty,tri,"[0.0, 0.126, 0.2]",B,import duty on capital goods (0% BK regime; 12.6% Decree 513/2025; 20% Mercosur CET)
+logist,tri,"[0.03, 0.08, 0.15]",A,"freight, logistics and FX cost on imports, fraction"
+m_p,logn,[0.25],A,"realised-price multiplier (tariff/FX risk), mean 1"
+avail_firm,tri,"[0.6, 0.85, 1.0]",A,fraction of surplus gas contractually firm
+uptime,tri,"[0.8, 0.9, 0.95]",A,plant availability
+rec,tri,"[0.9, 0.95, 0.985]",L,CH4 recovery in upgrading
+tail_ox,uni,"[0.0, 0.95]",A,fraction of tail-gas CH4 slip oxidised
+fug_plant,tri,"[0.002, 0.006, 0.012]",L,"plant fugitive CH4, fraction of CH4 in"
+capex_up,tri,"[1800, 3000, 5000]",A,"upgrader capex, USD per Nm3/h raw capacity"
+e_up,tri,"[0.2, 0.28, 0.4]",L,"upgrading electricity, kWh/Nm3 raw"
+c_el,tri,"[70, 95, 130]",B,"electricity purchase cost, USD/MWh (wholesale monomic ~87-91 USD/MWh 2024-25 plus network)"
+om_up,tri,"[0.03, 0.04, 0.06]",A,"upgrader O&M, fraction of capex per yr"
+lab_up,tri,"[0.15, 0.25, 0.45]",A,"labour/other, MUSD/yr"
+capex_gv,tri,"[400, 800, 1500]",A,"GNC compression capex, USD per Nm3/h product"
+capex_gf,tri,"[0.3, 0.8, 2.0]",A,"GNC fixed capex, MUSD"
+p_gnc,tri,"[0.13, 0.19, 0.4]",B,"bio-GNC net plant-gate price, USD/Nm3 (delivered station gas ~0.15, retail ~0.40-0.45, 2025)"
+p_pipe,tri,"[0.07, 0.1, 0.16]",B,"pipeline net plant-gate price, USD/Nm3 (PIST 2.94-2.98 USD/MMBtu, Dec 2025)"
+D_gnc,tri,"[300, 1000, 3000]",A,"bio-GNC anchor demand, Nm3/h"
+dist_km,tri,"[2, 8, 20]",A,"distance to injection point, km"
+c_km,tri,"[0.3, 0.6, 1.2]",A,"pipeline spur cost, MUSD/km"
+c_inj,tri,"[0.5, 1.0, 2.0]",A,"injection/metering station, MUSD"
+capex_pw,tri,"[1100, 1300, 1700]",R,"gas-engine power capex, USD/kW (RenovAr landfill-gas ref 1.3 MUSD/MW)"
+p_el,tri,"[60, 75, 95]",B,"electricity sale price, merchant/MAT, USD/MWh (marginal cost 69, monomic ~87-91, 2024-25)"
+p_el_k,tri,"[110, 125, 135]",B,"electricity sale price, RenovAr-type contract, USD/MWh (landfill-gas awards 128-130, 2017)"
+cf_pw,tri,"[0.8, 0.88, 0.93]",A,new engines capacity factor
+eta_pw,tri,"[0.36, 0.4, 0.43]",L,new engines electrical efficiency
+om_pw,tri,"[0.03, 0.045, 0.07]",A,"engine O&M, fraction of capex per yr"
+var_loss,uni,"[0.05, 0.25]",A,flow-variability loss without buffer
+zeta,uni,"[0.5, 0.9]",A,fraction of variability loss removed by buffer
+capex_buf,tri,"[0.3, 0.8, 2.0]",A,"buffer capex, MUSD"
+leak_buf,tri,"[0.002, 0.005, 0.01]",A,"buffer CH4 leakage, fraction of throughput"
+f_pv,uni,"[0.1, 0.5]",A,share of upgrader electricity from on-site PV
+dEta_ad,tri,"[0.0, 0.01, 0.03]",A,adaptive-control gain in collection efficiency
+capex_ad,tri,"[0.2, 0.5, 1.2]",A,"adaptive control capex, MUSD"
+opex_ad,tri,"[0.05, 0.1, 0.25]",A,"adaptive control opex, MUSD/yr"
+kwp_ha,tri,"[500, 700, 900]",A,"conventional PV, kWp per ha"
+capex_pv,tri,"[550, 750, 1100]",R,"PV capex, USD/kW (RenovAr ref 850)"
+prem_pv,tri,"[1.1, 1.3, 1.6]",A,landfill foundation premium for PV
+yield_pv,tri,"[1350, 1500, 1650]",A,"PV yield, kWh/kWp/yr"
+om_pv,tri,"[0.01, 0.015, 0.025]",A,"PV O&M, fraction of capex per yr"
+life_pv,tri,"[20, 25, 30]",A,"PV life, yr"
+p_pv,tri,"[55, 70, 90]",B,"PV electricity value, merchant, USD/MWh (2024-25 wholesale cost)"
+eta_pt,tri,"[0.02, 0.05, 0.1]",A,PV-paint module efficiency (unvalidated)
+c_pt,tri,"[5, 30, 150]",A,"PV-paint installed cost, USD/m2 (unvalidated; wide on purpose)"
+life_pt,tri,"[2, 6, 20]",A,"PV-paint life, yr (unvalidated; wide on purpose)"
+pr_pt,tri,"[0.65, 0.78, 0.85]",A,PV-paint performance ratio
+om_pt,tri,"[0.01, 0.02, 0.04]",A,"PV-paint O&M, fraction of capex per yr"
+H_poa,tri,"[1550, 1650, 1750]",A,"plane-of-array irradiation, kWh/m2/yr"
+ef_grid,tri,"[0.28, 0.31, 0.36]",A,"grid emission factor, tCO2/MWh"
+cp,tri,"[2.0, 6.0, 12.0]",B,"carbon-credit price if eligible, USD/tCO2e (VCM ~5.5, landfill gas ~9.5 USD, 2025)"
+p_elig,uni,"[0.2, 0.8]",A,probability that added capture is eligible for credits
+dv,tri,"[0.0, 0.4, 0.6]",A,debt share of financing
+r_e,tri,"[0.12, 0.16, 0.22]",A,real cost of equity
+r_d,tri,"[0.07, 0.09, 0.12]",A,real cost of debt
+k_dec,tri,"[0.05, 0.09, 0.15]",L,"first-order decay rate, 1/yr (IPCC 2006, temperate wet MSW)"
+age,tri,"[20, 28, 32]",A,years of deposition before 2026
+t_close,tri,"[3, 8, 15]",A,"years until deposition stops, from 2026"

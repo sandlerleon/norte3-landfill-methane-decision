@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+code/archive_v1/
+manuscript/_v1_original.docx
+manuscript/~$*
+*.zip
