@@ -66,7 +66,7 @@ Published run: Python 3.11, NumPy 2.4.6, SciPy 1.17.1, Matplotlib 3.11.1 (Window
 
 ## Versions
 
-* **v2.1.0** (second review, not yet released) — identifiability of the collection efficiency (closed form, variance shares, contraction, five alternative
+* **v2.1.0** (2026-11-01) — language edit merged (American spelling, 'approximately', plain verbs; meaning-changing suggestions rejected); identifiability of the collection efficiency (closed form, variance shares, contraction, five alternative
   generation histories, satellite scaling and error), independent 2025 observation and the reported model discrepancy, engine counterfactuals
   (conditional versus unconditional probabilities in nine operating states), climate-accounting variants, PV-coating analysis, parameter table and
   balance checks moved to the Supplementary Information; 59 automated tests.

@@ -152,9 +152,9 @@ add(("p0", "Very large landfills are major methane sources, but site decisions r
             "generation, collection, surface emission, oxidation, selective covers, biomethane upgrading, additional power generation and photovoltaics, "
             "and applied it to the Norte III landfill in Buenos Aires. A bottom-up generation prior is constrained by satellite emission estimates at "
             "their own date (2022) and carried to 2025–26. The inferred collection efficiency, %s in 2022 and %s in 2025–26 (median, 90%% interval), "
-            "follows from the emission, oxidation and reported capture, is conditional on the data and not a measurement, and rises to %s with an "
+            "follows from the emission, oxidation and reported capture, is conditional on the data and not a measurement, and increases to %s with an "
             "independent 2025 observation that the model overpredicts by a factor of %s. Under no-credit conditions none of eight integrated scenarios has "
-            "a positive median net present value; wellfield optimisation with a selective cover abates methane at a median US$%s per tCO₂e. Additional "
+            "a positive median net present value; wellfield optimization with a selective cover abates methane at a median US$%s per tCO₂e. Additional "
             "engines are profitable in %s of draws that have surplus gas, but in %s of all operating states after the planned expansion; biomethane needs "
             "US$%s per Nm³ (US$%s per MMBtu). A cover helps only if the captured share of blocked gas exceeds an analytic break-even (median %s). "
             "Conclusions hold under alternative generation histories, satellite scaling and dated Argentine benchmarks."
@@ -169,7 +169,7 @@ add(("h1", "1. Introduction"))
 add(("p", "Landfills are among the largest anthropogenic sources of methane, and airborne and satellite surveys have shown that a small number of very "
           "large sites contribute a disproportionate share of urban emissions [@Duren2019;@Maasakkers2022;@Schuit2023;@Cusworth2024]. Inventories "
           "derived from first-order decay models and assumed collection efficiencies can differ substantially from measurement-based estimates "
-          "[@Stuart2026], and at facility scale satellite estimates often do not correlate with reported or modelled values [@Dogniaux2025]. Collection "
+          "[@Stuart2026], and at facility scale satellite estimates often do not correlate with reported or modeled values [@Dogniaux2025]. Collection "
           "efficiency itself is poorly constrained in the literature [@Spokas2006;@Giordano2024;@Saul2026]. The Norte III "
           "landfill in Greater Buenos Aires is one of the large sites identified from space. Its operator reports a large and growing capture system "
           "with on-site power generation [@CEAMSE2026;@Canal26], while satellite observations place surface emissions at tens of tonnes of methane per "
@@ -179,7 +179,7 @@ add(("p", "Mitigation options are numerous: wellfield tuning and leak repair, en
           "compressed bio-GNC for vehicles, pipeline biomethane), on-site solar generation and gas buffering. Techno-economic studies usually evaluate "
           "such options one at a time, with point estimates and a fixed gas supply [@Ghafoori2022;@Agostini2024], whereas the measurement literature "
           "quantifies emissions or collection efficiency without evaluating the decisions that follow from them [@Maasakkers2022;@Cusworth2024;"
-          "@Giordano2024]. What neither can answer is how a decision-maker should choose between more capture and better use of the gas already "
+          "@Giordano2024]. Neither can answer how a decision-maker should choose between more capture and better use of the gas already "
           "collected when the site's emission is known only through uncertain remote sensing: the climate benefit of a measure is rarely tied to a "
           "mass balance in which blocked or captured gas can reappear elsewhere; uncertainty in prices, exchange rates, taxes and financing is usually "
           "represented by a few scenarios rather than propagated; and the existence of surplus gas for any new use is assumed, not tested."))
@@ -201,8 +201,8 @@ add(("p", "The study is a screening analysis. It uses no site measurements beyon
 add(("h1", "2. Case study, reported data and benchmarks"))
 add(("h2", "2.1 Operator data and top-down estimates"))
 add(("p", "Norte III receives roughly 18,000 t of municipal solid waste per day [@CEAMSE2026]. CEAMSE reports captured biogas of 13,800 m³ h⁻¹ "
-          "in 2025, rising to 16,000 m³ h⁻¹ in April 2026 [@Canal26], against a maximum captured flow of 13,100 Nm³ h⁻¹ in 2013 [@Rosso2016]. "
-          "Biogas-fired power plants have operated on site since 2012 [@Canal26]; the operator statement summarised in the project white paper "
+          "in 2025, increasing to 16,000 m³ h⁻¹ in April 2026 [@Canal26], against a maximum captured flow of 13,100 Nm³ h⁻¹ in 2013 [@Rosso2016]. "
+          "Biogas-fired power plants have operated on site since 2012 [@Canal26]; the operator statement summarized in the project white paper "
           "[@WhitePaper2026] gives 23 MW installed in 2020 and an expansion to 33 MW planned for 2026. Gas not used by the engines is flared. These are "
           "operator statements: they are not measured fugitive emissions, they do not state the methane fraction, and they do not establish that any "
           "gas is uncommitted."))
@@ -210,9 +210,9 @@ add(("p", "Top-down estimates come from satellites. [!@Maasakkers2022] combined 
           "observations and reported emissions of 3 to 29 t CH₄ h⁻¹ from strongly emitting landfills in four cities, with the Buenos Aires site near "
           "28 t h⁻¹ [@SRON2022]; a GHGSat observation in September 2022 implied 18 to 38 t h⁻¹ [@Bloomberg2022]. These estimates refer to 2019–2022 and "
           "are retrievals at the time of observation, not annual facility means. Capture has since increased, and comparing them with a 2025–26 "
-          "capture rate, as the first version of this analysis did, mixes periods. CEAMSE disputes the characterisation of the site [@Canal26]. The "
+          "capture rate, as the first version of this analysis did, mixes periods. CEAMSE disputes the characterization of the site [@Canal26]. The "
           "satellite estimates are therefore used as a constraint at their own date, with an explicit observation-error model, not as ground truth "
-          "(Section 3.2). One later observation is independent of the calibration: Carbon Mapper retrievals from Tanager-1 and EMIT for 2025, summarised "
+          "(Section 3.2). One later observation is independent of the calibration: Carbon Mapper retrievals from Tanager-1 and EMIT for 2025, summarized "
           "by the UCLA STOP Methane project as an average of overpass emission rates of %s t CH₄ h⁻¹ for the Greater Buenos Aires landfill operated by "
           "CEAMSE [@STOP2026]. The operator replies that the ranking rests on point satellite measurements under particular atmospheric conditions, which limit "
           "their representativeness [@Canal26]. The observation is used here as an independent check, with its own error model (Sections 3.8 and 4.3)." % n(VAL["obs"], 1)))
@@ -256,8 +256,8 @@ add(("p", "evaluated with $G_{22}$ and $C_{22}$ at the observation date and with
           "$P_{el}\\,CF/(\\eta_{el}\\,LHV)$, with $LHV$ = 9.94 kWh Nm⁻³; the surplus beyond the engines, $S$, is flared. Methane is converted with "
           "0.717 kg Nm⁻³ and to CO₂-equivalent with the AR6 values for non-fossil methane, 27.0 (GWP100) and 79.7 (GWP20) [@Forster2021;@Balcombe2018]."))
 add(("h2", "3.2 Satellite constraint and observation-error models"))
-add(("p", "The satellite information enters as a likelihood on the modelled emission at the observation date, $E_{22}$ (t h⁻¹). Three "
-          "observation-error models are compared: a uniform window over the reported range (18 to 38 t h⁻¹; I is the indicator function), a Gaussian centred on the peer-reviewed "
+add(("p", "The satellite information enters as a likelihood on the modeled emission at the observation date, $E_{22}$ (t h⁻¹). Three "
+          "observation-error models are compared: a uniform window over the reported range (18 to 38 t h⁻¹; I is the indicator function), a Gaussian centered on the peer-reviewed "
           "estimate (28 ± 6 t h⁻¹), and a lognormal with the same median and $\\sigma_{\\ln}$ = 0.35, the base case because emission-rate retrievals "
           "have multiplicative errors [@Schuit2023]:"))
 add(("eq", r"L_{\rm win}=\mathrm{I}(18\le E_{22}\le 38),\quad L_{\rm G}=e^{-\frac{(E_{22}-28)^2}{2\cdot 6^2}},\quad L_{\rm LN}=e^{-\frac{(\ln E_{22}-\ln 28)^2}{2\cdot 0.35^2}}", 3))
@@ -268,11 +268,11 @@ add(("p", "which is %s (lognormal), %s (Gaussian) and %s (window) of %s draws. T
           "Every collection efficiency reported below is an inference conditional on the generation prior and the error model; none is a measurement."
           % (n(R["ess"]["lognormal"]), n(R["ess"]["gauss"]), n(R["ess"]["window"]), n(R["n"]))))
 add(("h2", "3.3 Interventions, selective covers and the cover break-even"))
-add(("p", "Eight scenarios follow the structure of the project white paper (Table 1). Wellfield optimisation (S1) raises the collection efficiency "
+add(("p", "Eight scenarios follow the structure of the project white paper (Table 1). Wellfield optimization (S1) increases the collection efficiency "
           "by an absolute increment $\\Delta\\eta_1$; the added gas is flared unless a later scenario uses it. A selective cover (S2, S3) acts on the "
           "fraction $f_{hot}$ of surface flux passing through the covered area. With $M_c$ the methane arriving at the cover, the barrier blocks "
           "$b = \\varepsilon M_c$; a share $s_c$ of the blocked gas is captured by the extraction system and the rest is redirected to uncovered "
-          "surface with oxidation $\\rho\\,ox$, while oxidation under the cover falls to $ox_{cov} = ox(1-\\delta\\varepsilon)$. The emission after "
+          "surface with oxidation $\\rho\\,ox$, while oxidation under the cover decreases to $ox_{cov} = ox(1-\\delta\\varepsilon)$. The emission after "
           "the cover and the net methane avoided are"))
 add(("eq", r"E_1=(E_s-M_c)(1-ox)+(M_c-b)(1-ox_{cov})+(1-s_c)\,b\,(1-\rho\,ox)", 5))
 add(("eq", r"\Delta E=E_s(1-ox)-E_1-s_c\,b\,(1-d_f)", 6))
@@ -280,8 +280,8 @@ add(("p", "where $E_s$ is the methane reaching the surface after S1 and $d_f$ th
           "is linear in $s_c$, the cover reduces net emissions if and only if"))
 add(("eq", r"s_c>s_c^*=-\frac{A_0}{A_1},\quad A_0=M_c(1-ox)-(M_c-b)(1-ox_{cov})-b(1-\rho\,ox),\quad A_1=b(1-\rho\,ox)-b(1-d_f)", 7))
 add(("p", "This is the quantitative form of the concern that sealing one area may only redirect leakage. Two structural alternatives are tested: "
-          "redirected gas that is not oxidised ($\\rho$ = 0) and complete loss of oxidation under the cover ($\\delta$ = 1)."))
-TAB1 = [["S0", "Documented recovery, power generation and flaring", "Reference"], ["S1", "Wellfield optimisation and leak detection", "S0"],
+          "redirected gas that is not oxidized ($\\rho$ = 0) and complete loss of oxidation under the cover ($\\delta$ = 1)."))
+TAB1 = [["S0", "Documented recovery, power generation and flaring", "Reference"], ["S1", "Wellfield optimization and leak detection", "S0"],
         ["S2", "S1 + conventional engineered cover on hot-spot area", "S1"], ["S3", "S1 + selective experimental coating", "S1"],
         ["S4", "S2 + conventional photovoltaics on the covered area", "S2"], ["S5", "S2 + experimental PV paint on the covered area", "S4 at equal area"],
         ["S6", "S2 + gas buffer + biomethane upgrading (surplus + captured gas)", "Flaring"], ["S6b", "S1 + gas buffer + biomethane upgrading, no cover", "Flaring"],
@@ -306,7 +306,7 @@ add(("h2", "3.5 Economics"))
 add(("p", "Cash flows are in real US dollars over 20 years. The net present value is"))
 add(("eq", r"\mathrm{NPV}=-\kappa\,\mathrm{CAPEX}+AF(r)\,(m_p R-O),\qquad AF(r)=\frac{1-(1+r)^{-20}}{r},\qquad \kappa=1+f_{\rm imp}\,(d+l)", 9))
 add(("p", "where $\\kappa$ is the capital premium built from the imported share $f_{imp}$, the import duty $d$ and logistics and exchange costs $l$, "
-          "$m_p$ a lognormal realised-price multiplier (mean 1, $\\sigma$ = 0.25) for tariff and exchange-rate risk, and $r$ the real discount rate "
+          "$m_p$ a lognormal realized-price multiplier (mean 1, $\\sigma$ = 0.25) for tariff and exchange-rate risk, and $r$ the real discount rate "
           "(8 to 18%, mode 12%, consistent with the 2025 country-risk spread). Replacement of short-lived assets (coatings, paint) is discounted "
           "explicitly. For photovoltaics on the covered area, setting the levelised cost of the paint equal to that of conventional PV gives the "
           "break-even efficiency $\\eta^* = c_{pt}\\,\\kappa\\,[CRF(r,L_{pt})+o_{pt}]/(LCOE_{\\rm conv}\\,H_{poa}\\,PR)$ (Supplementary Section S2). "
@@ -317,10 +317,10 @@ add(("p", "where $\\kappa$ is the capital premium built from the imported share 
 add(("h2", "3.6 Monte Carlo design, balances and automated tests"))
 add(("p", "Inputs (Supplementary Table S2) are sampled by Latin hypercube [@McKay1979] with triangular, uniform or lognormal marginals and are tagged as "
           "operator-reported [R], literature or standard value [L], dated benchmark [B] or assumed [A]. Sensitivity is reported as Spearman rank "
-          "correlation [@Saltelli2008]. For every scenario the model closes three balances: methane (generated = emitted + oxidised + destroyed + "
+          "correlation [@Saltelli2008]. For every scenario the model closes three balances: methane (generated = emitted + oxidized + destroyed + "
           "exported), carbon (the same flows in tonnes of carbon, with biogenic CO₂ from oxidation and combustion) and energy (offered = exported + "
           "flared + lost, with electricity imported tracked separately). The climate benefit of each scenario is computed both from the incremental "
-          "formulas and from the balances, and the two must agree. %d automated tests must pass before results are produced (Supplementary Section S4): "
+          "formulas and from the balances, and the two must agree. Before results are produced, %d automated tests must pass (Supplementary Section S4): "
           "unit conversions; closure of the cover, upgrader and scenario balances; agreement of the balance-based and incremental climate benefits; "
           "limiting cases; a hand-calculated upgrading case; an independent cash-flow benchmark of the annuity NPV; the analytic first-order-decay "
           "limits; LCOE parity at $\\eta^*$; the closed-form identity of the collection efficiency (Section 3.8); the limiting cases of the engine "
@@ -329,7 +329,7 @@ add(("p", "Inputs (Supplementary Table S2) are sampled by Latin hypercube [@McKa
 add(("h2", "3.7 Robustness design"))
 add(("p", "Beyond the three observation-error models, the analysis is repeated (120,000 draws each) with rank correlations induced by the "
           "Iman–Conover method [@Iman1982] between gas and electricity prices, between the prices and the costs that move with them, among capital "
-          "costs, between the realised-price multiplier and logistics, and between $L_0$ and $f_{ss}$; with uniform instead of triangular marginals; "
+          "costs, between the realized-price multiplier and logistics, and between $L_0$ and $f_{ss}$; with uniform instead of triangular marginals; "
           "with every prior widened by 50%; with the two structural cover alternatives; with contracted electricity; with a WACC; over a sweep of "
           "discount rates; and with expected credit revenue. Temporal variability is tested by replacing constant gas supply with a first-order-decay "
           "trajectory [@IPCC2006],"))
@@ -360,7 +360,7 @@ add(("p", "The profitability of additional engines is evaluated in nine operatin
           "contracted tariff; and a combined stress case. For each state we report the probability that surplus gas exists, the probability of a positive "
           "NPV given that it exists, and the probability across all draws (a draw without surplus gas counts as no profitable deployment)."))
 add(("p", "The climate account of the added engines and of biomethane is repeated with four changes, each a sensitivity and not a prediction (tag A): "
-          "engine methane slip of 1 to 6% of the methane burnt (the base model uses the flare and engine destruction efficiency, 0.5 to 5% slip); a "
+          "engine methane slip of 1 to 6% of the methane burned (the base model uses the flare and engine destruction efficiency, 0.5 to 5% slip); a "
           "marginal rather than average grid emission factor (0.35 to 0.65 tCO₂ per MWh, mode 0.45); a poorer counterfactual in which the surplus is "
           "flared with a destruction efficiency of 0.80 to 0.98 (flare uptime and combustion efficiency); and partial displacement of fossil natural "
           "gas by biomethane (fraction 0.3 to 1.0). The slip at which the climate benefit of the engines is exhausted follows from the balance and is "
@@ -371,21 +371,21 @@ add(("h1", "4. Results"))
 add(("h2", "4.1 Calibration and the inferred collection efficiency"))
 add(("p", "Reported flows imply that the existing engines consume %s Nm³ CH₄ h⁻¹ of a collected %s (median, 90%% interval), leaving a surplus of "
           "%s Nm³ CH₄ h⁻¹. The surplus is positive in %s of draws and exceeds 500 Nm³ h⁻¹ in %s, but it depends strongly on engine capacity: the "
-          "median is %s Nm³ h⁻¹ for installed power of 25 MW or less and %s Nm³ h⁻¹ once the expansion to about 33 MW is complete (Fig. 1d)."
+          "median is %s Nm³ h⁻¹ for installed power of 25 MW or less and %s Nm³ h⁻¹ once the expansion to approximately 33 MW is complete (Fig. 1d)."
           % (q3(g["eng_Nm3h"]), q3(g["C_Nm3h"]), q3(g["S_exist_Nm3h"]), pct(g["P_surplus_gt0"]), pct(g["P_surplus_gt500Nm3h_CH4"]),
              n(h["surplus_P_el_le25"][1]), n(h["surplus_P_el_ge31"][1]))))
-add(("p", "The prior gives generation around 2022 of %s Nm³ CH₄ h⁻¹ and a modelled 2022 emission of %s t h⁻¹. The satellite constraint shifts "
+add(("p", "The prior gives generation around 2022 of %s Nm³ CH₄ h⁻¹ and a modeled 2022 emission of %s t h⁻¹. The satellite constraint shifts "
           "generation to %s Nm³ h⁻¹ and the emission at the observation date to %s t h⁻¹, and the three error models give nearly the same posterior "
           "(Fig. 1a,b): the inferred 2022 collection efficiency is %s (lognormal), %s (Gaussian) and %s (window). Carried forward with the 2025–26 "
           "capture, the efficiency is %s and the surface emission %s t h⁻¹ (Fig. 1c). The collection efficiency of the first version, 0.18, compared a "
           "2025–26 capture with 2019–22 satellite data and is superseded; it was never a measurement. One percentage point of collection efficiency "
-          "corresponds to %s kt CH₄ yr⁻¹ (about %s kt CO₂e at GWP100), and the total baseline emission including slip from collected gas is %s kt "
-          "CH₄ yr⁻¹, about %s Mt CO₂e yr⁻¹."
+          "corresponds to %s kt CH₄ yr⁻¹ (approximately %s kt CO₂e at GWP100), and the total baseline emission including slip from collected gas is %s kt "
+          "CH₄ yr⁻¹, approximately %s Mt CO₂e yr⁻¹."
           % (q3(PR["gas"]["G22_Nm3h"]), q3(PR["gas"]["E22_th"]), q3(g["G22_Nm3h"]), q3(g["E22_th"]), q3(g["eta22"], 2),
              q3(R["posterior_gauss"]["gas"]["eta22"], 2), q3(R["posterior_window"]["gas"]["eta22"], 2), q3(g["eta_c"], 2), q3(g["E_atm_th"]),
              q3(h["per_pp_eta_tCH4_yr_q"], 1, 1e-3), n(h["per_pp_eta_tCO2e100_q"][1] / 1e3), q3(P["E_tot0_q"], 0, 1e-3), n(P["E_tot0_q"][1] * M.GWP100 / 1e6, 1))))
 add(("fig", "Fig1_gas_balance.png", "Fig. 1. Calibration. (a) Generation around 2022: prior and the posteriors of the three observation-error models. "
-            "(b) Modelled surface emission at the observation date with the satellite range shaded. (c) Inferred collection efficiency in 2022 and "
+            "(b) Modeled surface emission at the observation date with the satellite range shaded. (c) Inferred collection efficiency in 2022 and "
             "2025–26 (lognormal posterior; a model output, not a measurement). (d) Surplus methane beyond the existing engines by installed capacity.", 6.4))
 
 # ---- 4.2 identifiability
@@ -409,7 +409,7 @@ add(("p", "The collection efficiency of Eq. (12) is determined by the emission, 
 add(("p", "The conclusion does not depend on the generation history (Table 3). Under the five alternatives the median 2022 efficiency ranges from %s "
           "(high generation) to %s (low generation) and the 2025–26 efficiency from %s to %s. The alternatives are not equally compatible with the "
           "satellite estimate: relative to the base prior the evidence is %s for the inventory-anchored prior, %s for the first-order-decay history, "
-          "%s for high generation and %s for low generation, which the 18 to 38 t h⁻¹ range disfavours by a factor of about %s. Widening the "
+          "%s for high generation and %s for low generation, which the 18 to 38 t h⁻¹ range disfavors by a factor of approximately %s. Widening the "
           "historical-capture prior widens the 2022 interval to %s but moves the median by less than 0.01. Across the generation histories the "
           "2025–26 efficiency does not exceed %s, and the conclusions on covers, engines and biomethane do not change (Table 3, last columns)."
           % (n(high_g["eta22"][1], 2), n(low_g["eta22"][1], 2), n(min(gen_etac), 2), n(max(gen_etac), 2),
@@ -423,9 +423,9 @@ add(("p", "Representativeness is the larger uncertainty. The 2019–22 estimates
           "wind, temporal sampling, detection thresholds and intermittent high-emission events can bias them in either direction, although airborne "
           "surveys find that large landfill emissions often persist across repeated visits [@Cusworth2024]. Scaling the satellite median by 0.25 to 2 "
           "moves the 2025–26 efficiency from %s to %s (medians), and widening $\\sigma_{\\ln}$ from 0.35 to 1.0 leaves the median at %s but widens the interval "
-          "to %s. For the efficiency to reach 0.5, the surface emission would have to be about %s t h⁻¹, a factor of %s below the satellite median, and "
-          "for 0.3 about %s t h⁻¹. None of these changes the sign of any scenario's median NPV, and the probability that a cover reduces net emissions "
-          "stays between %s and %s (Table 3). The inferred efficiency of about %s is therefore conditional on the model structure and on the "
+          "to %s. For the efficiency to reach 0.5, the surface emission would have to be approximately %s t h⁻¹, a factor of %s below the satellite median, and "
+          "for 0.3 approximately %s t h⁻¹. None of these changes the sign of any scenario's median NPV, and the probability that a cover reduces net emissions "
+          "remains between %s and %s (Table 3). The inferred efficiency of approximately %s is therefore conditional on the model structure and on the "
           "satellite estimate; it is not evidence that the operator's reported capture is wrong, because the reported flows are inputs and what the "
           "constraint implies is a generation, and so an uncaptured fraction, that is large relative to them."
           % (n(SS[sat_keys[-1]]["eta_c"][1], 2), n(SS[sat_keys[0]]["eta_c"][1], 2), n(SS["sigma_ln 1.00"]["eta_c"][1], 2),
@@ -433,7 +433,7 @@ add(("p", "Representativeness is the larger uncertainty. The 2019–22 estimates
              pct(min(v["P_cover"] for v in list(SS.values()) + list(GV.values()) + list(JT.values()))),
              pct(max(v["P_cover"] for v in list(SS.values()) + list(GV.values()) + list(JT.values()))), n(g["eta_c"][1], 2))))
 add(("p", "Measured collection efficiencies at individual sites are not directly comparable. Field studies that express capture as recovered over "
-          "modelled generation, for example nine cells at three landfills [@Spokas2006], and a compilation of in-situ measurements [@Giordano2024] find "
+          "modeled generation, for example nine cells at three landfills [@Spokas2006], and a compilation of in-situ measurements [@Giordano2024] find "
           "that the default efficiencies used in inventories tend to overstate capture, with measured emissions on average two to three times the "
           "emissions the defaults imply [@Giordano2024]; critical reviews caution against transferring efficiencies between sites with different "
           "covers, ages and wellfield operation [@Saul2026]. An efficiency of %s at a very large, young-cover site with a rapidly growing "
@@ -471,7 +471,7 @@ add(("table", "Table 3. Identifiability and representativeness: collection effic
 
 # ---- 4.3 validation
 add(("h2", "4.3 External validation and model discrepancy"))
-add(("p", "The automated tests establish internal consistency, not agreement with site behaviour. One observation exists that is independent of the "
+add(("p", "The automated tests establish internal consistency, not agreement with site behavior. One observation exists that is independent of the "
           "calibration and of the reported flows: the Carbon Mapper average of %s t CH₄ h⁻¹ for 2025 [@STOP2026]. The model calibrated on 2019–22 "
           "data alone predicts a 2025–26 surface emission of %s t h⁻¹ (median and 90%% interval; Fig. 2d). The observed value is %s of the predicted "
           "median; the predictive distribution lies at or below it in %s of draws (%s when the lognormal error of the observation is included), a "
@@ -480,7 +480,7 @@ add(("p", "The automated tests establish internal consistency, not agreement wit
           % (n(VAL["obs"], 1), q3(VAL["pred_q"], 1), pct(VAL["ratio_obs_to_pred_median"]), pct(VAL["P_pred_below_obs"], 1),
              pct(VAL["P_pred_below_obs_with_obs_error"], 1), n(VAL["z_log"], 1))))
 add(("p", "Three explanations are possible and cannot be separated with the data at hand. First, the emission fell: reaching 2025's value from the "
-          "2022 estimate requires generation to fall to %s of its 2022 value within about three years (the prior of $g_t$ is 0.95 to 1.15) while about "
+          "2022 estimate requires generation to fall to %s of its 2022 value within approximately three years (the prior of $g_t$ is 0.95 to 1.15) while about "
           "18,000 t d⁻¹ continue to arrive, which is not credible for generation alone, although an emission reduction from interventions that are not in the model's baseline, such as "
           "new covers or leak repair since 2022, cannot be excluded. Second, the two data sets differ in instrument, "
           "retrieval algorithm, overpass time and averaging convention: the 2025 value is an average of overpass rates over sites observed on at "
@@ -488,8 +488,8 @@ add(("p", "Three explanations are possible and cannot be separated with the data
           "persistent large emitters are the population on which airborne and satellite surveys agree best, but facility-scale agreement across "
           "methods is poor in general [@Dogniaux2025]. Third, the model's structure or priors may be wrong, for example the oxidation fraction "
           "or the assumption that the reported flows are complete. When both observations are used with their stated errors, the posterior surface "
-          "emission is %s t h⁻¹ in 2022 and %s t h⁻¹ in 2025–26, and the efficiency in 2025–26 is %s; the 2025 observation alone gives %s, and "
-          "inflating both errors to 0.7 gives %s. The base-case efficiency of %s is therefore the lower end of a range of about %s to %s that "
+          "emission is %s t h⁻¹ in 2022 and %s t h⁻¹ in 2025–26, and the efficiency in 2025–26 is %s; the 2025 observation alone is %s, and "
+          "inflating both errors to 0.7 yields %s. The base-case efficiency of %s is therefore the lower end of a range of approximately %s to %s that "
           "the two satellite data sets jointly support, and in every case most of the generated methane is not collected (P95 %s). "
           "Decisions are unchanged across the range: the probability that a cover reduces net emissions is %s, the probability that additional engines "
           "are profitable given surplus gas is %s, and no integrated scenario has a positive median NPV (Table 3)."
@@ -500,14 +500,14 @@ add(("p", "We conclude that the model is externally unvalidated at facility scal
           "secondary summary without an uncertainty, and a second independent facility-scale data set does not exist in the sources we could access. "
           "Section 5.2 gives a field-measurement protocol that would convert this check into a validation."))
 
-add(("h2", "4.4 Wellfield optimisation and selective covers"))
+add(("h2", "4.4 Wellfield optimization and selective covers"))
 add(("p", "S1 avoids a median %s kt CO₂e yr⁻¹ at a net present cost of %s MUSD, a levelised abatement cost of US$%s per tCO₂e. A conventional cover "
           "reduces net methane emissions in %s of draws and an experimental coating in %s (Fig. 3a); the net effect of the cover alone is %s kt CH₄ yr⁻¹ "
           "for the conventional cover. Net avoided methane is %s of the gross added capture (median), so gross capture overstates the benefit by about "
           "a third. The break-even captured share $s_c^*$ has a median of %s; the cover increases emissions in exactly the %s of draws in which $s_c$ "
           "falls below its own $s_c^*$, and the analytic boundary tracks the simulated sign change (Fig. 3b). The cover's effect is controlled by $s_c$ "
-          "(Spearman ρ = %s), then by $f_{hot}$, $ox$ and $\\varepsilon$. Under the structural alternatives the probability of net benefit falls to %s "
-          "(redirected gas not oxidised) and %s (all oxidation lost under the cover)."
+          "(Spearman ρ = %s), then by $f_{hot}$, $ox$ and $\\varepsilon$. Under the structural alternatives the probability of net benefit decreases to %s "
+          "(redirected gas not oxidized) and %s (all oxidation lost under the cover)."
           % (q3(SC["S1"]["co2_100_q"], 0, 1e-3), n(-SC["S1"]["npv_q"][1], 1), n(SC["S1"]["abate_q"][1], 1), pct(h["H1_P_cover_reduces_conv"]),
              pct(h["H1_P_cover_reduces_coat"]), q3(h["H1_cover_only_ch4_conv"], 1, 1e-3), pct(h["H1_gross_vs_net_ratio_median"]),
              q3(h["H1_sc_star_q"], 2), pct(h["H1_P_sc_below_star"], 1), n(dict(P["sens_S2_ch4"])["s_c"], 2),
@@ -540,7 +540,7 @@ add(("p", "The power alternative is reported separately because it is not an emi
           "and says nothing about whether it will exist (Table 5). At the installed 23 MW the surplus exists in %s of draws and engines are profitable "
           "in %s of all draws; with the prior range of capacity (23 to 33 MW) the figures are %s and %s; after the planned expansion to 33 MW surplus "
           "gas exists in only %s of draws (median %s Nm³ CH₄ h⁻¹ where it exists) and a profitable deployment in %s. Declining gas supply lowers the "
-          "probability given surplus to %s; 25%% downtime of the new engines to %s; a US$45 per MWh tariff to %s; a contracted tariff raises it to %s. "
+          "probability given surplus to %s; 25%% downtime of the new engines to %s; a US$45 per MWh tariff to %s; a contracted tariff increases it to %s. "
           "Combining a 33 MW fleet, declining supply, downtime, curtailment and the low tariff leaves a profitable deployment in %s of draws "
           "(%s of those with surplus). The finding that engines are profitable on genuinely uncommitted gas is robust; whether genuinely uncommitted gas "
           "will remain after the expansion is not."
@@ -557,8 +557,8 @@ add(("table", "Table 5. Additional engines on the surplus gas under nine operati
      ["Operating state", "P(surplus)", "P(NPV>0 | surplus)", "P(NPV>0, all)", "Median NPV"], rows5, [3.8, 0.8, 1.1, 1.0, 0.9]))
 add(("p", "For the surplus beyond the existing engines, biomethane has a positive NPV in %s of draws (median %s MUSD) and beats additional engines "
           "in %s. Where it is built, bio-GNC to an anchor customer is the preferred route in %s of draws, because the pipeline price anchored to the "
-          "PIST benchmark is low relative to the cost of a spur. The break-even realised bio-GNC plant-gate price is US$%s per Nm³ (about US$%s per "
-          "MMBtu) against a prior of 0.13 to 0.40; pipeline injection would need US$%s per Nm³ (US$%s per MMBtu), about six times the PIST price. "
+          "PIST benchmark is low relative to the cost of a spur. The break-even realized bio-GNC plant-gate price is US$%s per Nm³ (approximately US$%s per "
+          "MMBtu) against a prior of 0.13 to 0.40; pipeline injection would need US$%s per Nm³ (US$%s per MMBtu), approximately six times the PIST price. "
           "To match additional engines, bio-GNC would need US$%s per Nm³. Sizing does not rescue upgrading: with only the existing surplus as feedstock, "
           "the probability of a positive NPV peaks at %s at 2,000 Nm³ h⁻¹ of raw gas (Fig. 5b). A gas buffer lowers NPV in %s of draws (median %s MUSD)."
           % (pct(h["H3_P_up_npv_pos"], 1), q3(h["H3_npv_up_q"], 1), pct(h["H3_P_up_beats_power"], 2), pct(h["H3_route_share"][0], 1),
@@ -575,11 +575,11 @@ add(("p", "A project can have a positive NPV and a small climate benefit, and th
           "For additional engines the base account credits only the displaced grid electricity at the average emission factor and treats the engines "
           "like the flare they replace; the median benefit is %s kt CO₂e yr⁻¹, %s of that of the cover (S2). The benefit is exhausted only if the engines "
           "slip more than %s of the methane they burn (median break-even slip, P5 to P95: %s), well above the 1 to 6%% range tested, and a marginal "
-          "grid factor raises it to %s kt. If the surplus is not reliably flared (destruction efficiency 0.80 to 0.98), the benefit of burning it rises "
+          "grid factor increases it to %s kt. If the surplus is not reliably flared (destruction efficiency 0.80 to 0.98), the benefit of burning it rises "
           "to %s kt; with slip, marginal factor and poor flaring together it is %s kt. For biomethane the benefit depends mainly on whether it displaces "
-          "fossil gas: with displacement between 0.3 and 1.0 the median falls from %s to %s kt CO₂e yr⁻¹ and the benefit is positive in %s of draws "
+          "fossil gas: with displacement between 0.3 and 1.0 the median decreases from %s to %s kt CO₂e yr⁻¹ and the benefit is positive in %s of draws "
           "instead of %s. Financial and climate rankings differ: additional engines have the highest NPV of the uses of surplus gas and a benefit of a "
-          "few per cent of that of the capture measures, whereas S2 has the largest benefit and a negative NPV."
+          "few percent of that of the capture measures, whereas S2 has the largest benefit and a negative NPV."
           % (n(cw[kpw[0]]["q"][1], 1), pct(CLV["PW_share_of_S2_median"], 1), pct(CLV["engine_slip_breakeven_q"][1], 1), "%s to %s" % (pct(CLV["engine_slip_breakeven_q"][0], 1),
              pct(CLV["engine_slip_breakeven_q"][2], 1)), n(cw[kpw[2]]["q"][1], 1), n(cw[kpw[3]]["q"][1], 1), n(cw[kpw[4]]["q"][1], 1),
              n(cb[kbm[0]]["q"][1], 1), n(cb[kbm[1]]["q"][1], 1), pct(cb[kbm[1]]["P_pos"]), pct(cb[kbm[0]]["P_pos"]))))
@@ -613,10 +613,10 @@ add(("fig", "Fig6_abatement_cost.png", "Fig. 6. Cumulative distribution of level
             "credit prices of US$10, 25 and 50 per tCO₂e.", 5.6))
 add(("h2", "4.10 Sensitivity"))
 sS6b, sPW = dict(P["sens_S6b_npv"]), dict(P["sens_PW_npv"])
-add(("p", "The NPV of upgrading without a cover (S6b) is controlled by price and capital: the realised-price multiplier (ρ = %s), the bio-GNC price "
+add(("p", "The NPV of upgrading without a cover (S6b) is controlled by price and capital: the realized-price multiplier (ρ = %s), the bio-GNC price "
           "(%s) and the upgrader capital cost (%s); gas-side inputs rank lower (Fig. 7a). The value of additional engines depends on the same "
           "price multiplier (%s), then on the methane fraction, the discount rate and the installed engine capacity (Fig. 7b). Tariff and exchange-rate "
-          "risk, not gas chemistry, is the dominant uncertainty for monetising recovered gas."
+          "risk, not gas chemistry, is the dominant uncertainty for monetizing recovered gas."
           % (n(sS6b["m_p"], 2), n(sS6b["p_gnc"], 2), n(sS6b["capex_up"], 2), n(sPW["m_p"], 2))))
 add(("fig", "Fig7_sensitivity.png", "Fig. 7. Spearman rank correlations, lognormal posterior: (a) NPV of S6b; (b) NPV of the power alternative; (c) net "
             "methane avoided by the conventional cover. Top ten inputs.", 6.6))
@@ -625,10 +625,10 @@ ce = RB["credit_expected"]
 ds = {round(x["r"], 2): x for x in RB["discount_sweep"]}
 add(("p", "Because the abatement costs are low, a credit near US$5 to 10 per tCO₂e would make the capture measures viable if the added capture "
           "were eligible: at US$25 the probability of a positive NPV is %s for S1 and %s for S2 (Fig. 8a). At the 2025 market range, with an "
-          "eligibility probability between 0.2 and 0.8, the expected credit revenue raises P(NPV > 0) only to %s (S1) and %s (S2). The discount rate "
+          "eligibility probability between 0.2 and 0.8, the expected credit revenue increases P(NPV > 0) only to %s (S1) and %s (S2). The discount rate "
           "does not change any conclusion between 6 and 20%% real (Fig. 8b): S1 and S2 remain negative at every rate, S6b reaches at most %s, and the "
-          "power alternative stays above %s. A WACC built from equity and debt costs gives a median S6b NPV of %s MUSD against %s in the base case. "
-          "CEAMSE reports that it began certifying carbon credits linked to biogas management in 2025 [@Canal26]; whether the added capture modelled "
+          "power alternative remains above %s. A WACC built from equity and debt costs gives a median S6b NPV of %s MUSD against %s in the base case. "
+          "CEAMSE reports that it began certifying carbon credits linked to biogas management in 2025 [@Canal26]; whether the added capture modeled "
           "here would be additional, verifiable and saleable is outside this study."
           % (n(SC["S1"]["P_npv_pos_cp25"], 2), n(SC["S2"]["P_npv_pos_cp25"], 2), n(ce["S1"]["P_npv_pos"], 2), n(ce["S2"]["P_npv_pos"], 2),
              n(max(x["S6b"] for x in RB["discount_sweep"]), 3), n(min(x["PW"] for x in RB["discount_sweep"]), 2),
@@ -639,10 +639,10 @@ add(("h2", "4.12 Robustness"))
 tm = RB["temporal"]
 add(("p", "Table 7 and Fig. 9 repeat the headline quantities under every variant. The decision-relevant conclusions do not change: no integrated "
           "scenario has a positive median NPV in any variant, additional engines on the surplus remain profitable in %s to %s of draws with surplus, "
-          "upgrading beats them in under 1%% of draws, and the cover's net benefit stays between %s and %s. The climate case moves with the generation "
+          "upgrading beats them in under 1%% of draws, and the cover's net benefit remains between %s and %s. The climate case moves with the generation "
           "prior and the emission estimate: without the satellite constraint S2 avoids %s kt CO₂e yr⁻¹ instead of %s, and widening every prior by 50%% "
-          "raises it to %s. Correlated inputs change no headline quantity by more than a few per cent. With a first-order-decay supply trajectory, "
-          "the median NPV of additional engines falls from %s to %s MUSD and remains positive in %s of draws, while upgrading falls from %s to %s MUSD."
+          "increases it to %s. Correlated inputs change no headline quantity by more than a few percent. With a first-order-decay supply trajectory, "
+          "the median NPV of additional engines decreases from %s to %s MUSD and remains positive in %s of draws, while upgrading decreases from %s to %s MUSD."
           % (pct(min(v["P_pw_pos"] for v in RB["variants"])), pct(max(v["P_pw_pos"] for v in RB["variants"])),
              pct(min(v["P_cover"] for v in RB["variants"])), pct(max(v["P_cover"] for v in RB["variants"])),
              n(var("prior only (no satellite constraint)")["S2_avoided_kt"]), n(var("likelihood: lognormal")["S2_avoided_kt"]),
@@ -650,7 +650,7 @@ add(("p", "Table 7 and Fig. 9 repeat the headline quantities under every variant
              n(tm["up_median_ss"], 1), n(tm["up_median_t"], 1))))
 rows7 = []
 for v in RB["variants"]:
-    rows7.append([v["variant"].replace("gauss", "Gaussian").replace("window", "uniform window"), n(v["eta22"], 3), n(v["eta_c"], 3), n(v["S2_avoided_kt"]),
+    rows7.append([v["variant"].replace("unoxidized", "unoxidized").replace("gauss", "Gaussian").replace("window", "uniform window"), n(v["eta22"], 3), n(v["eta_c"], 3), n(v["S2_avoided_kt"]),
                   n(v["P_cover"], 2), n(v["S6b_npv"], 1), n(v["P_pw_pos"], 2), n(v["pstar_gnc"], 2), n(v["abate_S2"], 1), "no" if not v["any_scen_median_pos"] else "yes"])
 add(("table", "Table 7. Robustness of the headline quantities (medians unless stated). η: inferred collection efficiency; S2 avoided in kt CO₂e "
               "yr⁻¹; P(cover): probability that the cover reduces net emissions; S6b NPV in MUSD; P(PW > 0): probability that additional engines have "
@@ -664,7 +664,7 @@ add(("h2", "4.13 Physical consistency: methane, carbon and energy balances"))
 bm = P["balances_median"]
 add(("p", "In every scenario the methane, carbon and energy balances close to round-off (relative residuals below 10⁻⁹), and the climate benefit "
           "computed from the balances equals the incremental benefit to within 10⁻⁸ (Supplementary Section S4). For a median draw in the reference "
-          "case %s kt CH₄ yr⁻¹ is emitted, %s kt is oxidised in the cover soil and %s kt is destroyed in engines and flares; the measures shift methane "
+          "case %s kt CH₄ yr⁻¹ is emitted, %s kt is oxidized in the cover soil and %s kt is destroyed in engines and flares; the measures shift methane "
           "from the first category to the third, and upgrading exports %s kt CH₄ yr⁻¹ as biomethane (Supplementary Table S3 and Fig. S3). The "
           "fossil-CO₂ credit of upgrading (displaced natural gas minus grid electricity used) is small against the methane term."
           % (n(bm["S0"]["ch4_emit"] * M.RHO / 1e6), n(bm["S0"]["ch4_ox"] * M.RHO / 1e6), n(bm["S0"]["ch4_destroy"] * M.RHO / 1e6),
@@ -676,8 +676,8 @@ add(("p", "The scorecard for the five hypotheses of the project white paper is i
 # ============================================================================================ 5 Discussion
 add(("h1", "5. Discussion"))
 add(("h2", "5.1 What the model says about priorities"))
-add(("p", "The largest finding concerns scale. Collected methane is about %s t h⁻¹, whereas the satellite-constrained generation is about %s t h⁻¹, so "
-          "most generated methane is not collected. The measures that change the balance are those that raise collection efficiency, at about %s kt "
+add(("p", "The largest finding concerns scale. Collected methane is approximately %s t h⁻¹, whereas the satellite-constrained generation is approximately %s t h⁻¹, so "
+          "most generated methane is not collected. The measures that change the balance are those that increase collection efficiency, at approximately %s kt "
           "CH₄ yr⁻¹ per percentage point; coatings, PV and buffers act on the margin. The integrated package S7 lowers per-tonne emissions by a median "
           "%s. This conclusion follows from the reported capture and the satellite constraint and does not depend on the economic priors, but its "
           "size depends on which satellite estimate is trusted (Sections 4.2 and 4.3). Because measured collection efficiencies at active sites span "
@@ -706,19 +706,19 @@ add(("h2", "5.3 Limitations"))
 add(("p", "The model is a lumped-parameter screening tool. It has no spatial gas-flow solution, so the hot-spot fraction, barrier effectiveness and "
           "captured share are parameters, not predictions; a pressure-resolved porous-media model is the next step for the cover question. The "
           "satellite constraint rests on a few retrievals from 2019–22 with wind and retrieval uncertainty, and the three error models span but do not "
-          "exhaust the possibilities. The efficiency is identified by the emission, the oxidation fraction and the reported capture alone, so an error in "
+          "exhaust the possibilities. The efficiency is determined by the emission, the oxidation fraction and the reported capture alone, so an error in "
           "any of them passes directly into it; the generation prior only restricts the draws. The model overpredicts the one independent 2025 "
-          "observation by a factor of about %s and is externally unvalidated at facility scale (Section 4.3). The generation prior and the growth factor "
+          "observation by a factor of approximately %s and is externally unvalidated at facility scale (Section 4.3). The generation prior and the growth factor "
           "that carries it to 2025–26 are assumptions. Operator figures were taken as reported, and the 23 MW and 33 MW capacities come from the white "
           "paper's summary of the operator statement. Prices are anchored to the benchmarks of Table 2, but peso conversions and the plant-gate price a "
           "bio-GNC buyer would actually pay are assumptions. The engine slip, marginal grid factor, flare counterfactual and displacement ranges of "
-          "Section 4.7 are assumptions, and credit additionality is not modelled. The PV-paint concept derives from the author's unpublished "
+          "Section 4.7 are assumptions, and credit additionality is not modeled. The PV-paint concept derives from the author's unpublished "
           "competition submission, and no experimental data exist for it; treating its performance as a prior asks what it would need to achieve, "
           "not what it will achieve." % n(1.0 / VAL["ratio_obs_to_pred_median"], 1)))
 add(("h2", "5.4 What would falsify these conclusions"))
 TAB6 = [["Covers reduce net methane", "The captured share of blocked gas falls below $s_c^*$ (median %s), for example when extraction headroom or "
          "header capacity is limiting." % n(h["H1_sc_star_q"][1], 2)],
-        ["Biomethane loses to power", "A firm bio-GNC price above about US$%s per Nm³, or electricity worth less than the engines' break-even (median "
+        ["Biomethane loses to power", "A firm bio-GNC price above approximately US$%s per Nm³, or electricity worth less than the engines' break-even (median "
          "US$%s per MWh), or no engine capacity can be added." % (n(h["pstar_gnc_pw_q"][1], 2), n(h["pel_star_q"][1]))],
         ["Surplus gas exists", "The 33 MW expansion is commissioned (surplus positive in %s of those draws, median %s Nm³ CH₄ h⁻¹), or hourly records show "
          "all collected gas committed." % (pct(h["P_surplus_gt0_P_el_ge31"]), n(h["surplus_P_el_ge31"][1]))],
@@ -729,23 +729,23 @@ add(("table", "Table 8. Conditions under which each conclusion fails.", ["Conclu
 
 # ============================================================================================ 6 Conclusions
 add(("h1", "6. Conclusions"))
-for t in ("A methane balance constrained by satellite estimates at their own observation date implies a collection efficiency of about %s in 2022 "
-          "and %s in 2025–26 at Norte III, rising to %s when an independent 2025 observation is added. The efficiency is determined by the emission, "
+for t in ("A methane balance constrained by satellite estimates at their own observation date implies a collection efficiency of approximately %s in 2022 "
+          "and %s in 2025–26 at Norte III, increasing to %s when an independent 2025 observation is added. The efficiency is determined by the emission, "
           "the oxidation fraction and the reported capture, not by the generation prior; it is conditional on the data and the model, is not a "
           "measurement, and is not evidence about the accuracy of the operator's reported capture. The leading mitigation lever is collection "
-          "efficiency, worth about %s kt CH₄ yr⁻¹ per percentage point."
+          "efficiency, worth approximately %s kt CH₄ yr⁻¹ per percentage point."
           % (n(g["eta22"][1], 2), n(g["eta_c"][1], 2), n(J1["eta_c"][1], 2), n(h["per_pp_eta_tCH4_yr_q"][1] / 1e3, 1)),
-          "The model overpredicts the one independent 2025 emission observation by a factor of about %s and is externally unvalidated at facility "
+          "The model overpredicts the one independent 2025 emission observation by a factor of approximately %s and is externally unvalidated at facility "
           "scale; a field-measurement protocol is proposed to resolve this." % n(1.0 / VAL["ratio_obs_to_pred_median"], 1),
           "None of the eight integrated intervention scenarios has a positive median incremental NPV under the assumed no-credit conditions, although "
           "the median abatement costs are US$%s to %s per tCO₂e; credit eligibility, not engineering feasibility, decides bankability."
           % (n(min(SC[s]["abate_q"][1] for s in M.SCEN), 1), n(max(SC[s]["abate_q"][1] for s in M.SCEN), 1)),
           "Additional engines on uncommitted surplus gas are profitable in %s of draws that have surplus gas at merchant tariffs, but in %s of all "
-          "operating states once the 33 MW expansion is complete, and their climate benefit is a few per cent of that of the capture measures; "
-          "biomethane would need about US$%s per Nm³ (US$%s per MMBtu) to break even."
+          "operating states once the 33 MW expansion is complete, and their climate benefit is a few percent of that of the capture measures; "
+          "biomethane would need approximately US$%s per Nm³ (US$%s per MMBtu) to break even."
           % (pct(h["H3_P_power_npv_pos"]), pct(pwrow("planned")["P_pos_all"]), n(h["pstar_gnc_q"][1], 2), n(h["pstar_gnc_mmbtu_q"][1])),
           "A selective cover helps only when the captured share of the gas it blocks exceeds a closed-form threshold (median %s); gross capture "
-          "overstates the net benefit by about a third." % n(h["H1_sc_star_q"][1], 2),
+          "overstates the net benefit by approximately one-third." % n(h["H1_sc_star_q"][1], 2),
           "Every scenario closes its methane, carbon and energy balances, and the decision conclusions survive alternative generation histories, "
           "satellite scaling and error, correlated inputs, alternative priors, structural cover alternatives, dated tax and financing assumptions, "
           "time-varying gas supply and alternative climate-accounting choices."):
@@ -843,7 +843,7 @@ for s in ("S0", "S1", "S2", "S4", "S6", "S6b", "S7"):
     rowsB.append([s, n(b["ch4_emit"] * M.RHO / 1e6, 1), n(b["ch4_ox"] * M.RHO / 1e6, 1), n(b["ch4_destroy"] * M.RHO / 1e6, 1),
                   n(b["ch4_export"] * M.RHO / 1e6, 1), n(b["c_co2_bio"] / 1e3, 1), n(b["e_product"] / 1e3, 1), n(b["elec_in"] / 1e3, 1),
                   n(b["co2e"] / 1e6, 2)])
-adds(("table", "Table S3. Scenario balances for the median draw: methane emitted, oxidised, destroyed and exported (kt CH₄ yr⁻¹); biogenic carbon "
+adds(("table", "Table S3. Scenario balances for the median draw: methane emitted, oxidized, destroyed and exported (kt CH₄ yr⁻¹); biogenic carbon "
                "released as CO₂ (kt C yr⁻¹); biomethane energy exported and grid electricity used (GWh yr⁻¹); total emissions (Mt CO₂e yr⁻¹, GWP100). "
                "Residuals of all balances are below 10⁻⁹ of generation.",
       ["Scenario", "Emitted", "Oxidised", "Destroyed", "Exported", "Biogenic C", "Exported energy", "Electricity", "Total CO₂e"], rowsB,
