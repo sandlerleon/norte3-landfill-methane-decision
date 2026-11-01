@@ -192,7 +192,7 @@ class Doc:
         par.paragraph_format.keep_together = True
         r = par.add_run(); r.add_tab()
         par._p.append(omml.tex_to_omml(tex))
-        r2 = par.add_run(); r2.add_tab(); r2.add_text("(%d)" % number); r2.font.size = Pt(10.5)
+        r2 = par.add_run(); r2.add_tab(); r2.add_text("(%s)" % number); r2.font.size = Pt(10.5)
 
     def fig(self, path, caption, width_in=6.4):
         par = self.d.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER

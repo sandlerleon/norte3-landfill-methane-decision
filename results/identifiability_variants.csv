@@ -1,0 +1,19 @@
+variant,ESS,marginal_likelihood,eta22_P5,eta22_P50,eta22_P95,eta_c_P5,eta_c_P50,eta_c_P95,P_cover,P_pw_pos,S6b_npv,any_scen_median_pos
+generation_variants: base prior (wide),112381,0.58986,0.0899,0.1299,0.1908,0.096,0.1402,0.2081,0.9246,0.9868,-14.7,False
+"generation_variants: inventory-anchored (L0 90-110, fss 0.45-0.75)",130546,0.6274,0.1216,0.1508,0.1886,0.1287,0.1627,0.2068,0.929,0.9857,-14.756,False
+"generation_variants: high generation (L0 140-200, fss 0.70-0.95)",102304,0.22918,0.0572,0.0712,0.0882,0.0607,0.0769,0.0967,0.8869,0.9853,-14.621,False
+"generation_variants: low generation (L0 50-90, fss 0.30-0.60)",16921,0.01211,0.1852,0.235,0.3045,0.1978,0.2549,0.3335,0.9503,0.9854,-15.008,False
+"generation_variants: first-order-decay history (fss from k, age, growth)",133139,0.73444,0.0839,0.1187,0.171,0.0895,0.1283,0.1867,0.9185,0.9854,-14.703,False
+"generation_variants: widened historical collection (Q22 uniform 8,000-18,000)",112312,0.58981,0.074,0.1263,0.2058,0.0955,0.1401,0.2087,0.9243,0.986,-14.721,False
+satellite_sensitivity: scale x0.25,50572,nan,0.1752,0.2602,0.3736,0.1875,0.2808,0.4066,0.9006,0.9856,-14.92,False
+satellite_sensitivity: scale x0.50,193248,nan,0.1218,0.1819,0.267,0.1301,0.196,0.2902,0.9095,0.9862,-14.785,False
+satellite_sensitivity: scale x0.75,245421,nan,0.1008,0.1486,0.2193,0.1078,0.1603,0.2393,0.918,0.9849,-14.712,False
+satellite_sensitivity: scale x1.00,224817,nan,0.0895,0.13,0.1905,0.0954,0.1404,0.2078,0.9253,0.9849,-14.704,False
+satellite_sensitivity: scale x1.50,139995,nan,0.0778,0.1095,0.1588,0.0828,0.1182,0.1733,0.9299,0.9855,-14.635,False
+satellite_sensitivity: scale x2.00,80580,nan,0.0717,0.0984,0.1401,0.0765,0.1062,0.1532,0.9394,0.9859,-14.652,False
+satellite_sensitivity: sigma_ln 0.50,259525,nan,0.0883,0.1349,0.213,0.0943,0.1456,0.2317,0.9217,0.9853,-14.74,False
+satellite_sensitivity: sigma_ln 0.70,281315,nan,0.0877,0.1389,0.2312,0.094,0.1502,0.2502,0.9212,0.9861,-14.702,False
+satellite_sensitivity: sigma_ln 1.00,293229,nan,0.0881,0.143,0.2481,0.094,0.1544,0.2693,0.9196,0.985,-14.698,False
+joint: 2025 observation alone (sigma 0.5),120927,0.20811,0.1347,0.2177,0.3388,0.1456,0.236,0.3683,0.9042,0.9867,-14.833,False
+joint: both observations (0.35 and 0.5),202573,0.0486,0.1137,0.1627,0.2304,0.1227,0.1774,0.2525,0.9139,0.9858,-14.746,False
+"joint: both, inflated errors (0.7 and 0.7)",244544,0.25312,0.1074,0.1694,0.2671,0.1154,0.1836,0.2912,0.9123,0.9856,-14.755,False

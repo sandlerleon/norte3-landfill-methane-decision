@@ -82,7 +82,7 @@ def fig2(out, idx, d):
         a.plot(e, np.clip(sc_star_curve(out, idx, e, dl), 0, 1), ls=ls, color="k", lw=1.2, label="analytic $s_c^*$, δ$_{ox}$=%.1f" % dl)
     a.set_xlabel("barrier effectiveness ε"); a.set_ylabel("capture share of blocked gas $s_c$"); a.set_ylim(0, .8)
     a.legend(fontsize=7, frameon=True, framealpha=.85, loc="upper right"); a.set_title("(b) Break-even boundary: analytic vs Monte Carlo", fontsize=9.5)
-    fig.tight_layout(); fig.savefig(d + "/Fig2_cover.png"); plt.close(fig)
+    fig.tight_layout(); fig.savefig(d + "/Fig3_cover.png"); plt.close(fig)
 
 
 def fig3(out, idx, d):
@@ -109,7 +109,7 @@ def fig3(out, idx, d):
     for i, v in enumerate(dd):
         b.text(i + 1, hi + 0.04 * (hi - lo), "P(>0)=%.2f" % (v > 0).mean(), ha="center", va="bottom", fontsize=6.8)
     b.set_title("(b) Power alternative\n(existing surplus)", fontsize=9.5)
-    fig.tight_layout(); fig.savefig(d + "/Fig3_npv_scenarios.png"); plt.close(fig)
+    fig.tight_layout(); fig.savefig(d + "/Fig4_npv_scenarios.png"); plt.close(fig)
 
 
 def fig4(out, idx, sweep, d):
@@ -130,7 +130,7 @@ def fig4(out, idx, sweep, d):
     a.set_xscale("log"); a.set_xticks(Q); a.set_xticklabels([str(int(x)) for x in Q]); a.minorticks_off()
     a.set_ylim(0, 1.02); a.set_xlabel("design raw-gas capacity, Nm$^3$/h"); a.set_ylabel("probability NPV > 0")
     a.legend(fontsize=7.5, frameon=False, loc="center right"); a.set_title("(b) Sizing on existing surplus only", fontsize=9.5)
-    fig.tight_layout(); fig.savefig(d + "/Fig4_route_and_sizing.png"); plt.close(fig)
+    fig.tight_layout(); fig.savefig(d + "/Fig5_route_and_sizing.png"); plt.close(fig)
 
 
 def fig5(out, idx, d):
@@ -152,7 +152,7 @@ def fig5(out, idx, d):
     a.axvline(0, color="k", lw=1)
     a.set_xlabel("log$_{10}$(LCOE paint / LCOE conventional PV)"); a.set_ylabel("draws")
     a.set_title("(b) P(paint cheaper) = %.2f under wide priors" % (ratio < 1).mean(), fontsize=9.5)
-    fig.tight_layout(); fig.savefig(d + "/Fig5_paint_vs_pv.png"); plt.close(fig)
+    fig.tight_layout(); fig.savefig(d + "/FigS2_paint_vs_pv.png"); plt.close(fig)
 
 
 def fig6(out, idx, d):
@@ -244,7 +244,7 @@ def fig10(res, d):
     a.axhline(0, color="k", lw=.8)
     a.set_xticks(xx); a.set_xticklabels(ks); a.set_ylabel("ktCO$_2$e/yr vs S0 (median draw)"); a.legend(fontsize=7, frameon=False)
     a.set_title("(b) Climate account from the balances", fontsize=9.5)
-    fig.tight_layout(); fig.savefig(d + "/Fig10_balances.png"); plt.close(fig)
+    fig.tight_layout(); fig.savefig(d + "/FigS3_balances.png"); plt.close(fig)
 
 
 def figS1(d):
@@ -272,7 +272,7 @@ def run_all(n=300000, outdir="results"):
     for k in M.LIKELIHOODS:
         post[k], ess[k], acc[k] = M.posterior_index(out["g"], k)
     cons = np.where(out["g"]["consistent"])[0]
-    res = dict(n=n, version="2.0.0", n_consistent=int(cons.size), ess=ess, acceptance=acc,
+    res = dict(n=n, version="2.1.0", n_consistent=int(cons.size), ess=ess, acceptance=acc,
                prior=M.summarize(out, cons, "prior"), posterior=M.summarize(out, post["lognormal"], "posterior (lognormal, base)"),
                posterior_gauss=M.summarize(out, post["gauss"], "posterior (Gaussian)"),
                posterior_window=M.summarize(out, post["window"], "posterior (window 18-38 t/h)"))
@@ -281,6 +281,9 @@ def run_all(n=300000, outdir="results"):
     rob = M.robustness()
     res["robustness"] = rob
     print("robustness [%.0fs]" % (time.time() - t0))
+    import NorteIII_review as RV
+    res["review"] = dict(ident=RV.identifiability(out), pw=RV.pw_cases(out, post["lognormal"]), climate=RV.climate_variants(out, post["lognormal"]))
+    print("review analyses [%.0fs]" % (time.time() - t0))
     params = [dict(name=a, dist=b, args=list(c), tag=t, desc=ds) for a, b, c, t, ds in M.P]
     res["params"] = params
     with open(os.path.join(outdir, "results.json"), "w") as f:
@@ -302,6 +305,20 @@ def run_all(n=300000, outdir="results"):
         w = csv.writer(f); w.writerow(keys)
         for r in rob["variants"]:
             w.writerow([r[k] if isinstance(r[k], (str, bool)) else round(r[k], 4) for k in keys])
+    with open(os.path.join(outdir, "identifiability_variants.csv"), "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["variant", "ESS", "marginal_likelihood", "eta22_P5", "eta22_P50", "eta22_P95", "eta_c_P5", "eta_c_P50", "eta_c_P95",
+                                       "P_cover", "P_pw_pos", "S6b_npv", "any_scen_median_pos"])
+        idn = res["review"]["ident"]
+        for grp in ("generation_variants", "satellite_sensitivity", "joint"):
+            for k, v in idn[grp].items():
+                w.writerow([grp + ": " + k, round(v["ess"]), round(v.get("marginal_likelihood", float("nan")), 5)] + [round(x, 4) for x in v["eta22"]]
+                           + [round(x, 4) for x in v["eta_c"]] + [round(v["P_cover"], 4), round(v["P_pw_pos"], 4), round(v["S6b_npv"], 3), v["any_scen_median_pos"]])
+    with open(os.path.join(outdir, "pw_counterfactual_cases.csv"), "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["case", "P_surplus", "P_npv_pos_given_surplus", "P_npv_pos_all_states", "median_npv_given_surplus_MUSD", "median_surplus_Nm3h",
+                                       "P_surplus_gt500"])
+        for r in res["review"]["pw"]["rows"]:
+            w.writerow([r["case"], round(r["P_surplus"], 4), round(r["P_pos_given_surplus"], 4), round(r["P_pos_all"], 4), round(r["median_npv_given_surplus"], 3),
+                        round(r["median_surplus"], 1), round(r["P_surplus_gt500"], 4)])
     with open(os.path.join(outdir, "balances_median.csv"), "w", newline="") as f:
         bal = res["posterior"]["balances_median"]
         keys = ["ch4_emit", "ch4_ox", "ch4_destroy", "ch4_export", "resid", "c_ch4", "c_co2_bio", "c_export", "co2e", "fossil", "elec_out", "elec_in", "e_product"]
@@ -310,5 +327,6 @@ def run_all(n=300000, outdir="results"):
             w.writerow([s] + [round(b.get(k, 0.0), 1) for k in keys])
     idx = post["lognormal"]
     fig1(out, post, fdir); fig2(out, idx, fdir); fig3(out, idx, fdir); fig4(out, idx, res["sweep"], fdir)
+    RV.fig_ident(res["review"]["ident"], out, idx, fdir)
     fig5(out, idx, fdir); fig6(out, idx, fdir); fig7(res, fdir); fig8(out, post, rob, fdir); fig9(rob, fdir); fig10(res, fdir); figS1(fdir)
     print("done ->", outdir, "[%.0fs]" % (time.time() - t0))

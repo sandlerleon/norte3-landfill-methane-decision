@@ -1,5 +1,5 @@
 {
- "n": 51,
+ "n": 59,
  "all_passed": true,
  "tests": [
   {
@@ -249,6 +249,46 @@
   },
   {
    "name": "FOD analytic: k -> 0 limit is (a+t)/a",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "identifiability: eta22 = C/(C + E/((1-ox) rho)) with no generation parameter",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "identifiability: ln odds of capture = ln E - ln(1-ox) - ln C - ln(rho/1000)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "observation model: sigma -> infinity makes the likelihood uninformative",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "engine counterfactual: constant-supply case reproduces the PW annuity NPV",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "engine counterfactual: fast decay with continuing deposition reproduces the constant case",
+   "passed": true,
+   "info": "4.1e-08"
+  },
+  {
+   "name": "engine counterfactual: full curtailment leaves the capital cost and O&M (NPV < 0)",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "climate: engine climate benefit is zero at the break-even methane slip",
+   "passed": true,
+   "info": ""
+  },
+  {
+   "name": "engine counterfactual: P(NPV>0 and surplus) = P(surplus) x P(NPV>0 | surplus)",
    "passed": true,
    "info": ""
   },

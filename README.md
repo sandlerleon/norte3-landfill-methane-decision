@@ -18,12 +18,20 @@ biomethane upgrading (bio-GNC, pipeline, hybrid), additional power generation, p
   Compression electricity is route-specific, plant fugitive methane and flared unsold product are counted, and the power alternative has a climate account.
 * **Dated Argentine economics.** PIST gas price, delivered and retail GNC, wholesale and contracted electricity, capital-goods import duties, country risk,
   corporate tax and carbon-credit prices, each with its date and source (manuscript Table 2).
+* **Identifiability and an independent check (v2.1.0).** The 2022 collection efficiency follows in closed form from the satellite emission, the
+  oxidation fraction and the reported capture (no generation parameter enters); the repository quantifies this (variance shares, prior-to-posterior
+  contraction), repeats the inference under five alternative generation histories and under scaling and widening of the satellite estimate, and
+  confronts the model with a second, independent 2025 observation (Carbon Mapper, 7.6 t/h), which the model overpredicts by a factor of about 3.5.
+  The model is therefore reported as externally unvalidated at facility scale, with a field-measurement protocol.
+* **Engine counterfactuals and climate accounting (v2.1.0).** Probability of profitable additional engines given surplus gas and across nine operating
+  states (installed/planned capacity, declining supply, downtime, curtailment, tariffs); climate benefit of engines and biomethane under engine slip,
+  marginal grid factor, poorer flare counterfactual and partial displacement of fossil gas.
 * **Robustness.** Correlated inputs (Iman–Conover), uniform and widened priors, structural cover alternatives, contracted electricity, WACC, after-tax NPV,
   discount-rate sweep, expected credit revenue with eligibility risk, and a first-order-decay gas trajectory.
 * **Analytic break-evens.** The captured share of blocked gas above which a selective cover reduces net emissions, and the efficiency a PV coating needs
   to match conventional PV, both verified against the simulation.
 
-Headline (lognormal posterior): none of the eight integrated intervention scenarios has a positive median incremental NPV under the assumed no-credit
+Headline (lognormal posterior; the first two statements are conditional on the 2019-22 satellite estimate and the model): none of the eight integrated intervention scenarios has a positive median incremental NPV under the assumed no-credit
 conditions; additional engines on uncommitted surplus gas (reported separately) are profitable in most draws at merchant tariffs; biomethane needs a
 bio-GNC plant-gate price of about US$0.46 per Nm³ to break even.
 
@@ -31,14 +39,16 @@ bio-GNC plant-gate price of about US$0.46 per Nm³ to break even.
 
 ```
 code/       NorteIII_MC.py            model, calibration, balances, robustness, automated tests
+            NorteIII_review.py        identifiability, representativeness, independent 2025 check, engine counterfactuals, climate variants
             NorteIII_figs.py          figures, results.json and CSV tables (run through NorteIII_MC.py --run)
-            build_manuscript.py       manuscript (.docx) from results/results.json; norte_references.py (reference library)
+            build_manuscript.py       manuscript and Supplementary Information (.docx) from results/results.json; norte_references.py (references)
             build_cover_letter.py     cover letter
             docx_engine.py, omml.py, manuscript_template.docx   document engine (Office Math equations)
             dois.json                 Zenodo DOIs written into the manuscript and cover letter
-results/    results.json, tests.json, parameters.csv, scenario_summary_posterior.csv, robustness_variants.csv, balances_median.csv
-figures/    Fig1-Fig10, FigS1 (200 dpi)
-manuscript/ NorteIII_Waste_Management_Manuscript_v2.docx, NorteIII_Cover_Letter.docx
+results/    results.json, tests.json, parameters.csv, scenario_summary_posterior.csv, robustness_variants.csv, balances_median.csv,
+            identifiability_variants.csv, pw_counterfactual_cases.csv
+figures/    Fig1-Fig9 (main text), FigS1-FigS3 (Supplementary Information), 200 dpi
+manuscript/ NorteIII_Waste_Management_Manuscript_v3.docx/.pdf, NorteIII_Supplementary_Information_v3.docx/.pdf, NorteIII_Cover_Letter.docx
 ```
 
 ## Reproduce
@@ -46,7 +56,7 @@ manuscript/ NorteIII_Waste_Management_Manuscript_v2.docx, NorteIII_Cover_Letter.
 ```
 pip install -r requirements.txt
 cd code
-python NorteIII_MC.py --test          # 51 automated tests (closure, units, limiting cases, benchmarks); ~1 min
+python NorteIII_MC.py --test          # 59 automated tests (closure, units, limiting cases, benchmarks); ~1 min
 python NorteIII_MC.py --run           # 300,000 draws + robustness variants + figures; ~2 min
 python build_manuscript.py            # manuscript from the stored results
 python build_cover_letter.py
@@ -56,6 +66,10 @@ Published run: Python 3.11, NumPy 2.4.6, SciPy 1.17.1, Matplotlib 3.11.1 (Window
 
 ## Versions
 
+* **v2.1.0** (second review, not yet released) — identifiability of the collection efficiency (closed form, variance shares, contraction, five alternative
+  generation histories, satellite scaling and error), independent 2025 observation and the reported model discrepancy, engine counterfactuals
+  (conditional versus unconditional probabilities in nine operating states), climate-accounting variants, PV-coating analysis, parameter table and
+  balance checks moved to the Supplementary Information; 59 automated tests.
 * **v2.0.0** — Revision for Waste Management: two-period satellite calibration with three observation-error models and a widened generation prior;
   explicit methane, carbon and energy balances per scenario with closure tests; route-specific compression, plant fugitive methane, flared unsold
   product and a climate account for the power alternative; dated Argentine benchmarks, import duties, tax, WACC and credit eligibility; correlated

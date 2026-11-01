@@ -49,6 +49,19 @@ para("The main results are decision-relevant and robust. None of the eight integ
      "Nm³ (US$%.0f per MMBtu). A selective cover reduces net emissions only when the captured share of the gas it blocks exceeds a closed-form break-even "
      "(median %.2f), which the simulation reproduces."
      % (100 * h["H3_P_power_npv_pos"], h["pstar_gnc_q"][1], h["pstar_gnc_mmbtu_q"][1], h["H1_sc_star_q"][1]))
+VAL, JT = R["review"]["ident"]["validation"], R["review"]["ident"]["joint"]
+pl = [r for r in R["review"]["pw"]["rows"] if r["case"].startswith("planned")][0]
+para("The paper states what its central inference does and does not identify. The collection efficiency follows from the satellite emission, the "
+     "oxidation fraction and the reported capture alone, and does not depend on the generation prior; it is tested against five alternative generation "
+     "histories, scaling and widening of the satellite estimate, and an independent 2025 observation (Carbon Mapper, %.1f t CH₄ per hour). That observation is "
+     "about %.0f%% of what the 2019–22-calibrated model predicts; I report the discrepancy, state that the model is externally unvalidated at facility "
+     "scale, and show that the decision conclusions do not change across the range of efficiencies (%.2f to %.2f) the two data sets support. The result is "
+     "conditional on the data and is not a statement about the accuracy of the operator's reported capture. The probability that additional engines are "
+     "profitable (%.0f%% given surplus gas) is separated from the probability across all operating states (%.0f%% after the planned engine expansion), "
+     "and the climate account of each use is repeated under alternative counterfactuals. The photovoltaic-coating analysis, the full parameter table and "
+     "the balance checks are in the Supplementary Information, and a field-measurement protocol is proposed that would convert the independent check into a "
+     "validation." % (VAL["obs"], 100 * VAL["ratio_obs_to_pred_median"], R["posterior"]["gas"]["eta_c"][1], JT["2025 observation alone (sigma 0.5)"]["eta_c"][1],
+                      100 * h["H3_P_power_npv_pos"], 100 * pl["P_pos_all"]))
 para("Three features distinguish the work. Every scenario closes explicit methane, carbon and energy balances, and the climate benefit computed from the "
      "balances equals the incremental formulas; the economic priors are anchored to dated Argentine benchmarks for gas, electricity, import duties, country "
      "risk, tax and carbon credits; and the conclusions are tested against correlated inputs, alternative and widened priors, structural alternatives for the "
@@ -57,8 +70,8 @@ para("Three features distinguish the work. Every scenario closes explicit methan
 para("The study is a screening analysis built on published operator figures and satellite estimates; it uses no new site measurements and states which "
      "measurements would change the decisions: a calibrated site flux survey, hourly gas and engine dispatch records, and a firm offtake or tariff quotation. "
      "The model, tests, parameter table and results are openly available at https://github.com/sandlerleon/norte3-landfill-methane-decision and archived at "
-     "https://doi.org/%s; the manuscript is archived at https://doi.org/%s. One command regenerates every number, table and figure."
-     % (DOIS.get("code", "(to be assigned)"), DOIS.get("paper", "(to be assigned)")))
+     "https://doi.org/%s (all versions); the manuscript is archived at https://doi.org/%s (all versions). One command regenerates every number, table and figure."
+     % (DOIS.get("code_concept", DOIS.get("code", "(to be assigned)")), DOIS.get("paper_concept", DOIS.get("paper", "(to be assigned)"))))
 para("A generative AI tool (Claude, Anthropic) assisted with source gathering, code development, drafting and editing; I reviewed and checked all of it and "
      "take full responsibility for the content, as disclosed in the manuscript. The manuscript is original, has not been published elsewhere and is not under "
      "consideration at any other journal. I am the sole author, I have no competing interests, and the work received no external funding. The photovoltaic-coating "

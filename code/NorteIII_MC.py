@@ -903,6 +903,33 @@ def self_test():
     # slow decay, no closure: G(t)/G(0) -> (a+t)/a (linear growth of the deposited mass)
     k, a, t = 1e-7, 28.0, 10.0
     chk("FOD analytic: k -> 0 limit is (a+t)/a", abs((1 - np.exp(-k * (a + t))) / (1 - np.exp(-k * a)) - (a + t) / a) < 1e-5)
+    # ---- version 2.1: identifiability, engine counterfactual, climate accounting, second observation
+    import NorteIII_review as RV
+    okg = g["G22"] > g["C22"]
+    chk("identifiability: eta22 = C/(C + E/((1-ox) rho)) with no generation parameter",
+        np.max(np.abs(RV.eta_closed(g["E22_th"][okg], m["p"]["ox"][okg], g["C22"][okg]) - g["eta22"][okg])) < 1e-12)
+    lo_ = np.log((1 - g["eta22"][okg]) / g["eta22"][okg])
+    chk("identifiability: ln odds of capture = ln E - ln(1-ox) - ln C - ln(rho/1000)",
+        np.max(np.abs(lo_ - (np.log(g["E22_th"][okg]) - np.log(1 - m["p"]["ox"][okg]) - np.log(g["C22"][okg]) - np.log(RHO / 1000.0)))) < 1e-9)
+    chk("observation model: sigma -> infinity makes the likelihood uninformative", np.max(np.abs(RV.lognorm_like(g["E22_th"][:5000], 28.0, 1e7) - 1.0)) < 1e-6)
+    sub = {k: v[:3000].copy() for k, v in m["p"].items()}
+    gs = gas_balance(sub)
+    npv_c, u_c = RV._pw(sub, gs)
+    chk("engine counterfactual: constant-supply case reproduces the PW annuity NPV", np.max(np.abs(npv_c - u_c["npv_pw"])) < 1e-6 * max(1.0, np.max(np.abs(npv_c))))
+    sub2 = dict(sub); sub2["k_dec"] = np.full(3000, 50.0); sub2["t_close"] = np.full(3000, 100.0)
+    npv_f, _ = RV._pw(sub2, gs, decline=True)
+    chk("engine counterfactual: fast decay with continuing deposition reproduces the constant case",
+        np.max(np.abs(npv_f - npv_c)) < 1e-6 * max(1.0, np.max(np.abs(npv_c))), "%.1e" % np.max(np.abs(npv_f - npv_c)))
+    npv_z, _ = RV._pw(sub, gs, curtail=1.0)
+    chk("engine counterfactual: full curtailment leaves the capital cost and O&M (NPV < 0)", np.all(npv_z[gs["S_exist"] > 0] < 0))
+    u_s = upgrading(sub, gs["S_exist"], 2000.0, True)
+    ch4_s = u_s["Qin"] * H * sub["cf_pw"] * sub["xCH4"]
+    s_st = (1 - sub["d_f"]) + u_s["mwh_pw"] * sub["ef_grid"] / (ch4_s * RHO / 1000.0 * GWP100)
+    ben = u_s["mwh_pw"] * sub["ef_grid"] - ch4_s * (s_st - (1 - sub["d_f"])) * RHO / 1000.0 * GWP100
+    ok_s = gs["S_exist"] > 0
+    chk("climate: engine climate benefit is zero at the break-even methane slip", np.max(np.abs(ben[ok_s])) < 1e-6 * max(1.0, np.max(np.abs(u_s["mwh_pw"][ok_s] * sub["ef_grid"][ok_s]))))
+    rows_ = RV.pw_cases(m, np.arange(20000), n_sub=5000)["rows"]
+    chk("engine counterfactual: P(NPV>0 and surplus) = P(surplus) x P(NPV>0 | surplus)", all(abs(r["P_pos_all"] - r["P_surplus"] * r["P_pos_given_surplus"]) < 1e-9 for r in rows_))
     # convergence of a headline probability
     big = run_model(200000, 11)
     idb, essb, _ = posterior_index(big["g"], "lognormal", n_post=100000)

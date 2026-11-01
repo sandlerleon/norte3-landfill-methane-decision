@@ -1,0 +1,10 @@
+case,P_surplus,P_npv_pos_given_surplus,P_npv_pos_all_states,median_npv_given_surplus_MUSD,median_surplus_Nm3h,P_surplus_gt500
+"installed capacity: 23 MW, constant gas supply",1.0,0.9859,0.9859,7.673,2488.1,0.9997
+"prior range 23-33 MW, constant gas supply (base)",0.9591,0.9861,0.9457,6.345,1495.7,0.8712
+"planned expansion: 33 MW, constant gas supply",0.6967,0.9867,0.6874,3.545,690.1,0.4434
+"33 MW, gas supply declining (first-order decay)",0.6967,0.9479,0.6604,3.019,690.1,0.4434
+"base, new engines 25% less available (downtime)",0.9591,0.8957,0.8591,2.957,1495.7,0.8712
+"base, 20% of the output curtailed",0.9591,0.929,0.891,3.624,1495.7,0.8712
+"base, low tariff (US$45 per MWh)",0.9591,0.6852,0.6572,0.867,1495.7,0.8712
+"base, contracted tariff (RenovAr-type)",0.9591,1.0,0.9591,14.94,1495.7,0.8712
+"stress: 33 MW, decline, 25% downtime, 20% curtailment, US$45",0.6967,0.1883,0.1312,-1.342,690.1,0.4434
