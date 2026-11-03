@@ -76,6 +76,10 @@ para("A generative AI tool (Claude, Anthropic) assisted with source gathering, c
      "take full responsibility for the content, as disclosed in the manuscript. The manuscript is original, has not been published elsewhere and is not under "
      "consideration at any other journal. I am the sole author, I have no competing interests, and the work received no external funding. The photovoltaic-coating "
      "concept examined in one scenario originates from my own unpublished competition submission, which is disclosed in the manuscript.")
+para("Author affiliation and email address. I am an independent researcher with no institutional affiliation, so I have no institutional email address; "
+     "as the first and corresponding author and sole author, I use my personal address (sandler.leon@gmail.com). The manuscript follows the journal's "
+     "layout requirements: 12 pt type, double spacing, 2.54 cm margins, line and page numbers, and no more than eight figures and tables in the main text, "
+     "the remaining tables and figures being in the Supplementary Information.")
 para("Thank you for considering this submission.")
 para("Sincerely,")
 para("Leon Sandler", True)

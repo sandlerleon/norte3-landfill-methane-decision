@@ -144,69 +144,123 @@ def _spacing(par, before, after, line=None):
         pf.line_spacing = line
 
 
+def _journal_setup(d):
+    """12 pt Times New Roman, 1-inch (2.54 cm) margins, continuous line numbers, page numbers centred in the footer"""
+    st = d.styles["Normal"]
+    st.font.name = "Times New Roman"; st.font.size = Pt(12)
+    rpr = st.element.get_or_add_rPr()
+    rf = rpr.find(qn("w:rFonts"))
+    if rf is None:
+        rf = OxmlElement("w:rFonts"); rpr.append(rf)
+    for a in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
+        rf.set(qn(a), "Times New Roman")
+    for sec in d.sections:
+        sec.left_margin = sec.right_margin = sec.top_margin = sec.bottom_margin = Inches(1.0)
+        sp = sec._sectPr
+        for old in sp.findall(qn("w:lnNumType")):
+            sp.remove(old)
+        ln = OxmlElement("w:lnNumType"); ln.set(qn("w:countBy"), "1"); ln.set(qn("w:restart"), "continuous")
+        sp.find(qn("w:pgMar")).addnext(ln)      # schema order: pgSz, pgMar, ..., lnNumType, pgNumType, cols
+        f = sec.footer; f.is_linked_to_previous = False
+        par = f.paragraphs[0] if f.paragraphs else f.add_paragraph()
+        for r in list(par.runs):
+            r._r.getparent().remove(r._r)
+        par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = par.add_run()
+        for typ, txt in (("begin", None), (None, " PAGE "), ("end", None)):
+            if typ:
+                e = OxmlElement("w:fldChar"); e.set(qn("w:fldCharType"), typ); r._r.append(e)
+            else:
+                e = OxmlElement("w:instrText"); e.set(qn("xml:space"), "preserve"); e.text = txt; r._r.append(e)
+        r.font.size = Pt(12)
+
+
 class Doc:
-    def __init__(self, citations):
+    def __init__(self, citations, journal=False):
         self.d = docx.Document(TEMPLATE)
         self.cit = citations
+        self.j = journal                       # journal mode (Waste Management technical check, 2026-11-02): 12 pt, double-spaced, 2.54 cm margins, line + page numbers
+        self.tw = 9360 if journal else TEXT_WIDTH_TW
+        if journal:
+            _journal_setup(self.d)
+
+    def _ds(self, par, before=0, after=0):
+        """double spacing in journal mode (paragraph spacing zero), otherwise the original spacing"""
+        _spacing(par, before, after, 2.0)
 
     def body_text(self, text):
         return self.cit.resolve(text)
 
     def title(self, text):
         p = self.d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        add_runs(p, text, 30, bold=True)
+        if self.j:
+            self._ds(p)
+        add_runs(p, text, 32 if self.j else 30, bold=True)
 
     def centered(self, text, size=22):
         p = self.d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _spacing(p, 0, 20)
-        add_runs(p, text, size)
+        if self.j:
+            self._ds(p)
+        add_runs(p, text, 24 if self.j else size)
 
     def blank(self):
         self.d.add_paragraph()
 
     def h1(self, text):
         p = self.d.add_paragraph(); _spacing(p, 300, 100)
+        if self.j:
+            self._ds(p)
         p.paragraph_format.keep_with_next = True
-        add_runs(p, text, 26, bold=True)
+        add_runs(p, text, 28 if self.j else 26, bold=True)
 
     def h2(self, text):
         p = self.d.add_paragraph(); _spacing(p, 220, 100)
+        if self.j:
+            self._ds(p)
         p.paragraph_format.keep_with_next = True
-        add_runs(p, text, 23, bold=True)
+        add_runs(p, text, 26 if self.j else 23, bold=True)
 
     def p(self, text, indent=True):
         par = self.d.add_paragraph(); _spacing(par, 0, 160)
+        if self.j:
+            self._ds(par)
         if indent:
             par.paragraph_format.first_line_indent = Emu(317 * 635)
-        add_runs(par, self.body_text(text), 21)
+        add_runs(par, self.body_text(text), 24 if self.j else 21)
         return par
 
     def eq(self, tex, number):
         par = self.d.add_paragraph()
         pPr = par._p.get_or_add_pPr()
         tabs = OxmlElement("w:tabs")
-        for pos, val in ((TEXT_WIDTH_TW // 2, "center"), (TEXT_WIDTH_TW, "right")):
+        for pos, val in ((self.tw // 2, "center"), (self.tw, "right")):
             t = OxmlElement("w:tab"); t.set(qn("w:val"), val); t.set(qn("w:pos"), str(pos)); tabs.append(t)
         pPr.append(tabs)
         _spacing(par, 120, 120)
         par.paragraph_format.keep_together = True
         r = par.add_run(); r.add_tab()
         par._p.append(omml.tex_to_omml(tex))
-        r2 = par.add_run(); r2.add_tab(); r2.add_text("(%s)" % number); r2.font.size = Pt(10.5)
+        r2 = par.add_run(); r2.add_tab(); r2.add_text("(%s)" % number); r2.font.size = Pt(12 if self.j else 10.5)
 
     def fig(self, path, caption, width_in=6.4):
         par = self.d.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
         _spacing(par, 200, 80); par.paragraph_format.keep_with_next = True
         par.add_run().add_picture(path, width=Inches(width_in))
         cap = self.d.add_paragraph(); _spacing(cap, 0, 200)
-        add_runs(cap, self.body_text(caption), 18, italic=True)
+        if self.j:
+            self._ds(cap, 0, 120)
+        add_runs(cap, self.body_text(caption), 24 if self.j else 18, italic=True)
 
     def table(self, caption, header, rows, widths=None, first_col_bold=True, size=17):
         n = len(header)
         widths = widths or [1.0] * n
         tot = float(sum(widths))
-        tw = [int(TEXT_WIDTH_TW * w / tot) for w in widths]
-        tw[-1] = TEXT_WIDTH_TW - sum(tw[:-1])
+        TW = self.tw
+        if self.j:
+            size = max(size, 18)               # tables stay single-spaced, 9 pt or larger
+        tw = [int(TW * w / tot) for w in widths]
+        tw[-1] = TW - sum(tw[:-1])
         t = self.d.add_table(rows=1 + len(rows), cols=n)
         tbl = t._tbl
         tblPr = tbl.tblPr
@@ -218,7 +272,7 @@ class Doc:
         tblW = tblPr.find(qn("w:tblW"))
         if tblW is None:
             tblW = OxmlElement("w:tblW"); tblPr.append(tblW)
-        tblW.set(qn("w:w"), str(TEXT_WIDTH_TW)); tblW.set(qn("w:type"), "dxa")
+        tblW.set(qn("w:w"), str(TW)); tblW.set(qn("w:type"), "dxa")
         look = tblPr.find(qn("w:tblLook"))
         if look is None:
             look = OxmlElement("w:tblLook"); tblPr.append(look)
@@ -256,8 +310,10 @@ class Doc:
                 _spacing(par, 0, 0 if ri == 0 else 20, 1.0)
                 add_runs(par, self.body_text(str(txt)), size, bold=(ri == 0) or (first_col_bold and ci == 0))
         cap = self.d.add_paragraph(); _spacing(cap, 60, 200)
+        if self.j:
+            self._ds(cap, 60, 120)
         if caption:
-            add_runs(cap, self.body_text(caption), 18, italic=True)
+            add_runs(cap, self.body_text(caption), 24 if self.j else 18, italic=True)
 
     def refs(self, entries):
         for n, text in entries:

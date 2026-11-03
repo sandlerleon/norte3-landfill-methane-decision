@@ -879,8 +879,8 @@ adds(("table", "Table S4. Outcome of the five hypotheses of the project white pa
 
 
 # ============================================================================================ build
-def build(path, blocks, cit, with_refs=True):
-    doc = E.Doc(cit)
+def build(path, blocks, cit, with_refs=True, journal=False):
+    doc = E.Doc(cit, journal)
     num = 0
     for b in blocks:
         k = b[0]
@@ -917,14 +917,72 @@ def build(path, blocks, cit, with_refs=True):
             for _, text in cit.entries():
                 par = doc.d.add_paragraph()
                 E._spacing(par, 0, 60)
+                if journal:
+                    doc._ds(par)
                 par.paragraph_format.left_indent = E.Emu(317 * 635)
                 par.paragraph_format.first_line_indent = E.Emu(-317 * 635)
-                E.add_runs(par, text, 18)
+                E.add_runs(par, text, 24 if journal else 18)
     doc.save(path)
 
 
-def scan_all(cit):
-    for b in B + BS:
+# ============================================================================================ journal layout (Waste Management technical check, 2026-11-02)
+# "the total number of figures + tables should be no more than 8": the manuscript keeps Figs 1-4 and Tables 1, 2 (old 4), 3 (old 5), 4 (old 8);
+# the other tables and figures move to the Supplementary Information with new numbers, and every cross-reference is renumbered.
+TAB_MAP = {"1": "1", "2": "S5", "3": "S6", "4": "2", "5": "3", "6": "S7", "7": "S8", "8": "4"}
+FIG_MAP = {"1": "1", "2": "2", "3": "3", "4": "4", "5": "S4", "6": "S5", "7": "S6", "8": "S7", "9": "S8"}
+MOVE_TAB = {"2", "3", "6", "7"}
+MOVE_FIG = {"5", "6", "7", "8", "9"}
+_REF = re.compile(r"(Supplementary )?(Table|Fig\.)\s(\d)(?![\d])")
+
+
+def _renum(text, supp):
+    """renumber 'Table N' / 'Fig. N' (digits only: S-numbered items are untouched); in the manuscript, moved items read 'Supplementary Table S5'"""
+    def rep(m):
+        kind, d = m.group(2), m.group(3)
+        new = (TAB_MAP if kind == "Table" else FIG_MAP)[d]
+        pre = "Supplementary " if (new.startswith("S") and not supp) else ""
+        return "%s%s %s" % (pre, kind, new)
+    out = _REF.sub(rep, text)
+    return re.sub(r"(Table S\d) of the manuscript", r"\1", out) if supp else out
+
+
+def _map_block(b, supp):
+    out = [b[0]]
+    for x in b[1:]:
+        if isinstance(x, str):
+            out.append(_renum(x, supp))
+        elif isinstance(x, list):
+            out.append([[(_renum(c, supp) if isinstance(c, str) else c) for c in row] if isinstance(row, list) else (_renum(row, supp) if isinstance(row, str) else row)
+                        for row in x])
+        else:
+            out.append(x)
+    return tuple(out)
+
+
+def journal_blocks():
+    main, moved = [], []
+    for b in B:
+        cap = b[2] if b[0] == "fig" else (b[1] if b[0] == "table" else "")
+        m = re.match(r"(Table|Fig\.)\s(\d)\.", cap or "")
+        if m and ((m.group(1) == "Table" and m.group(2) in MOVE_TAB) or (m.group(1) == "Fig." and m.group(2) in MOVE_FIG)):
+            moved.append(b)
+        else:
+            main.append(b)
+    order = lambda b: int(re.match(r"(?:Table|Fig\.)\s(\d)", b[2] if b[0] == "fig" else b[1]).group(1))
+    jm = [_map_block(b, False) for b in main]
+    si = [_map_block(b, True) for b in BS]
+    si.append(("h1", "S6. Further tables and figures of the main analysis"))
+    si.append(("p0", "These tables and figures were part of the main text of the first submission and moved here to keep the main text within eight tables and "
+                     "figures. They are cited from the main text as Supplementary Tables S5 to S8 and Supplementary Figs. S4 to S8."))
+    for b in sorted((x for x in moved if x[0] == "table"), key=order):
+        si.append(_map_block(b, True))
+    for b in sorted((x for x in moved if x[0] == "fig"), key=order):
+        si.append(_map_block(b, True))
+    return jm, si
+
+
+def scan_all(cit, blocks=None):
+    for b in (blocks if blocks is not None else B + BS):
         for x in b[1:]:
             if isinstance(x, str):
                 cit.scan(x)
@@ -940,9 +998,10 @@ if __name__ == "__main__":
         assert len(t) <= 85, (len(t), t)
     os.makedirs(OUT, exist_ok=True)
     cit = Harvard(LIB)
-    scan_all(cit)
-    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v3.docx"), B, cit)
-    build(os.path.join(OUT, "NorteIII_Supplementary_Information_v3.docx"), BS, cit)
+    JB, JS = journal_blocks()
+    scan_all(cit, JB + JS)
+    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v3.docx"), JB, cit, journal=True)
+    build(os.path.join(OUT, "NorteIII_Supplementary_Information_v3.docx"), JS, cit)
     words = sum(len(b[1].split()) for b in B if b[0] in ("p", "p0", "num") and not b[1].startswith(("CRediT", "Declaration", "Funding", "Data and")))
     abstract = [b[1] for b in B if b[0] == "p0"][0]
     print("built; %d references; abstract %d words; text ~%d words" % (len(cit.used), len(abstract.split()), words))
