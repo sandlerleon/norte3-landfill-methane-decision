@@ -28,7 +28,7 @@ GV, SS, JT, VAL = ID["generation_variants"], ID["satellite_sensitivity"], ID["jo
 TESTS = json.load(open(os.path.join(ROOT, "results", "tests.json"), encoding="utf-8"))
 assert TESTS["all_passed"], "automated tests have not all passed"
 NTEST = TESTS["n"]
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 TITLE = ("Landfill methane recovery and use under deep uncertainty: a satellite-constrained Monte Carlo decision model for the Norte III landfill, "
          "Buenos Aires")
 
