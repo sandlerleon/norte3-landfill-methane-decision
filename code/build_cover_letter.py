@@ -29,7 +29,7 @@ def para(t, bold=False, after=None):
 
 
 para("Leon Sandler", True, 0)
-for t in ("Independent Researcher", "Northbrook, Illinois, USA", "sandler.leon@gmail.com", "ORCID 0009-0007-4584-808X"):
+for t in ("Independent Researcher", "Northbrook, Illinois, USA", "leon.sandler@alumni.swinburne.edu", "ORCID 0009-0007-4584-808X"):
     para(t, after=0)
 para("")
 para(datetime.date.today().strftime("%d %B %Y").lstrip("0"))
@@ -76,8 +76,9 @@ para("A generative AI tool (Claude, Anthropic) assisted with source gathering, c
      "take full responsibility for the content, as disclosed in the manuscript. The manuscript is original, has not been published elsewhere and is not under "
      "consideration at any other journal. I am the sole author, I have no competing interests, and the work received no external funding. The photovoltaic-coating "
      "concept examined in one scenario originates from my own unpublished competition submission, which is disclosed in the manuscript.")
-para("Author affiliation and email address. I am an independent researcher with no institutional affiliation, so I have no institutional email address; "
-     "as the first and corresponding author and sole author, I use my personal address (sandler.leon@gmail.com). The manuscript follows the journal's "
+para("Author affiliation and email address. I am an independent researcher with no current institutional affiliation, and I am the sole author. My contact "
+     "and corresponding-author address is the alumni email address provided by my former university (Swinburne University of Technology, "
+     "leon.sandler@alumni.swinburne.edu); it identifies me as a graduate and does not indicate a current affiliation or employer. The manuscript follows the journal's "
      "layout requirements: 12 pt type, double spacing, 2.54 cm margins, line and page numbers, and no more than eight figures and tables in the main text, "
      "the remaining tables and figures being in the Supplementary Information.")
 para("Thank you for considering this submission.")

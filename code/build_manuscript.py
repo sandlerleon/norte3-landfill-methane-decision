@@ -137,7 +137,7 @@ add(("title", TITLE))
 add(("author", "Leon Sandler"))
 add(("small", "Independent Researcher, Northbrook, Illinois, USA"))
 add(("small", "ORCID: https://orcid.org/0009-0007-4584-808X"))
-add(("small", "Corresponding author: sandler.leon@gmail.com"))
+add(("small", "Corresponding author: leon.sandler@alumni.swinburne.edu"))
 add(("blank",))
 add(("h1", "Highlights"))
 for t in ("Satellite-constrained methane balance of a megasite, calibrated in two periods",

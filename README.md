@@ -1,6 +1,6 @@
 # Landfill methane recovery and use under deep uncertainty: a satellite-constrained Monte Carlo decision model for the Norte III landfill
 
-Leon Sandler, Independent Researcher — sandler.leon@gmail.com — ORCID 0009-0007-4584-808X
+Leon Sandler, Independent Researcher — leon.sandler@alumni.swinburne.edu — ORCID 0009-0007-4584-808X
 
 Code, data and manuscript for *"Landfill methane recovery and use under deep uncertainty: a satellite-constrained Monte Carlo decision model for the
 Norte III landfill, Buenos Aires,"* prepared for **Waste Management** (Elsevier).
