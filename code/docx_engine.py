@@ -144,7 +144,7 @@ def _spacing(par, before, after, line=None):
         pf.line_spacing = line
 
 
-def _journal_setup(d):
+def _journal_setup(d, line_numbers=True):
     """12 pt Times New Roman, 1-inch (2.54 cm) margins, continuous line numbers, page numbers centred in the footer"""
     st = d.styles["Normal"]
     st.font.name = "Times New Roman"; st.font.size = Pt(12)
@@ -160,7 +160,10 @@ def _journal_setup(d):
         for old in sp.findall(qn("w:lnNumType")):
             sp.remove(old)
         ln = OxmlElement("w:lnNumType"); ln.set(qn("w:countBy"), "1"); ln.set(qn("w:restart"), "continuous")
-        sp.find(qn("w:pgMar")).addnext(ln)      # schema order: pgSz, pgMar, ..., lnNumType, pgNumType, cols
+        if not line_numbers:
+            ln = None
+        if ln is not None:
+            sp.find(qn("w:pgMar")).addnext(ln)      # schema order: pgSz, pgMar, ..., lnNumType, pgNumType, cols
         f = sec.footer; f.is_linked_to_previous = False
         par = f.paragraphs[0] if f.paragraphs else f.add_paragraph()
         for r in list(par.runs):
@@ -176,13 +179,14 @@ def _journal_setup(d):
 
 
 class Doc:
-    def __init__(self, citations, journal=False):
+    def __init__(self, citations, journal=False, line_numbers=True, eq_images=False):
         self.d = docx.Document(TEMPLATE)
         self.cit = citations
         self.j = journal                       # journal mode (Waste Management technical check, 2026-11-02): 12 pt, double-spaced, 2.54 cm margins, line + page numbers
         self.tw = 9360 if journal else TEXT_WIDTH_TW
+        self.eq_images = eq_images             # equations as pictures (for servers whose Word-to-PDF conversion mishandles Office Math)
         if journal:
-            _journal_setup(self.d)
+            _journal_setup(self.d, line_numbers)
 
     def _ds(self, par, before=0, after=0):
         """double spacing in journal mode (paragraph spacing zero), otherwise the original spacing"""
@@ -231,6 +235,8 @@ class Doc:
         return par
 
     def eq(self, tex, number):
+        if self.eq_images:
+            return self._eq_image(tex, number)
         par = self.d.add_paragraph()
         pPr = par._p.get_or_add_pPr()
         tabs = OxmlElement("w:tabs")
@@ -242,6 +248,46 @@ class Doc:
         r = par.add_run(); r.add_tab()
         par._p.append(omml.tex_to_omml(tex))
         r2 = par.add_run(); r2.add_tab(); r2.add_text("(%s)" % number); r2.font.size = Pt(12 if self.j else 10.5)
+
+    def _eq_image(self, tex, number):
+        import tempfile
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        t = re.sub(r"\\\{\\\\rm ([^}]*)\\\}", r"\\mathrm{\\1}", tex) if False else re.sub(r"\{\\rm ([^}]*)\}", lambda m: "\\mathrm{" + m.group(1) + "}", tex)
+        t = t.replace("\\qquad", "\\quad\\quad").replace("\\ ", "\\,")
+        t = re.sub(r"\\le(?![a-zA-Z])", r"\\leq", t); t = re.sub(r"\\ge(?![a-zA-Z])", r"\\geq", t)
+        plt.rcParams["mathtext.fontset"] = "stix"
+        fig = plt.figure(figsize=(0.2, 0.2)); fig.text(0, 0, "$" + t + "$", fontsize=14)
+        fn = os.path.join(tempfile.gettempdir(), "eq_%d_%d.png" % (os.getpid(), len(self.d.paragraphs)))
+        fig.savefig(fn, dpi=300, bbox_inches="tight", pad_inches=0.03, facecolor="white"); plt.close(fig)
+        from PIL import Image
+        wpx = Image.open(fn).size[0]
+        par = self.d.add_paragraph()
+        pPr = par._p.get_or_add_pPr()
+        tabs = OxmlElement("w:tabs")
+        for pos, val in ((self.tw // 2, "center"), (self.tw, "right")):
+            tb = OxmlElement("w:tab"); tb.set(qn("w:val"), val); tb.set(qn("w:pos"), str(pos)); tabs.append(tb)
+        pPr.append(tabs)
+        _spacing(par, 120, 120)
+        par.paragraph_format.keep_together = True
+        r = par.add_run(); r.add_tab()
+        win = min(wpx / 300.0, self.tw / 1440.0 * 0.78)
+        par.add_run().add_picture(fn, width=Inches(win))
+        r2 = par.add_run(); r2.add_tab(); r2.add_text("(%s)" % number); r2.font.size = Pt(12 if self.j else 10.5)
+
+    def pagebreak(self):
+        self.d.add_page_break()
+
+    def caplist(self, title, captions):
+        """list of captions on its own page, left-aligned"""
+        self.h1(title)
+        for c in captions:
+            par = self.d.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            _spacing(par, 0, 120)
+            if self.j:
+                self._ds(par, 0, 120)
+            add_runs(par, self.body_text(c), 24 if self.j else 21)
 
     def fig(self, path, caption, width_in=6.4):
         par = self.d.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER

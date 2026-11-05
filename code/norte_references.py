@@ -86,3 +86,21 @@ LIB = {
     "WhitePaper2026": ("Sandler, 2026", "Sandler 2026",
                        "Sandler, L., 2026. Solar-assisted landfill methane recovery and biomethane valorization: a research white paper. Unpublished, 17 October 2026."),
 }
+
+
+# ---- Waste Management technical check (2026-11-04): sentence-case titles, access dates for web sources, URL for the IPCC guidelines
+_FIX = {
+    "IPCC2006": ("2006 IPCC Guidelines for National Greenhouse Gas Inventories, Volume 5: Waste, Chapter 3: Solid Waste Disposal. IGES, Hayama, Japan.",
+                 "2006 IPCC guidelines for national greenhouse gas inventories, volume 5: waste, chapter 3: solid waste disposal. IGES, Hayama, Japan. "
+                 "https://www.ipcc-nggip.iges.or.jp/public/2006gl/vol5.html"),
+    "Rosso2016": ("Norte III Final Disposal Environmental Complex, Metropolitan Area of Buenos Aires", "Norte III final disposal environmental complex, metropolitan area of Buenos Aires"),
+    "Saltelli2008": ("Global Sensitivity Analysis: The Primer. Wiley, Chichester.", "Global sensitivity analysis: the primer. Wiley, Chichester. https://doi.org/10.1002/9780470725184"),
+}
+ACCESSED = "4 November 2026"
+for _k, (_o, _n) in _FIX.items():
+    _a, _b, _t = LIB[_k]
+    assert _o in _t, _k
+    LIB[_k] = (_a, _b, _t.replace(_o, _n))
+for _k, (_a, _b, _t) in list(LIB.items()):
+    if "http" in _t and "doi.org" not in _t and "accessed" not in _t:
+        LIB[_k] = (_a, _b, _t.rstrip() + " (accessed %s)" % ACCESSED)

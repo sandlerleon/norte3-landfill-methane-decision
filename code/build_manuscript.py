@@ -20,6 +20,7 @@ R = json.load(open(os.path.join(ROOT, "results", "results.json"), encoding="utf-
 DOIS = json.load(open(os.path.join(HERE, "dois.json"), encoding="utf-8")) if os.path.exists(os.path.join(HERE, "dois.json")) else {}
 GITHUB = "https://github.com/sandlerleon/norte3-landfill-methane-decision"
 P, PR = R["posterior"], R["prior"]
+bm = P["balances_median"]
 HY, SC, GA = P["hyp"], P["scen"], P["gas"]
 RB = R["robustness"]
 RVW = R["review"]
@@ -95,6 +96,7 @@ class Harvard:
                 c = self.lib[keys[0]][0]
                 a, y = c.rsplit(", ", 1)
                 return "%s (%s)" % (a, y)
+            keys = sorted(keys, key=lambda k: self.lib[k][1])                # groups of references: alphabetical, then chronological
             return "(" + "; ".join(self.lib[k][0] for k in keys) + ")"
         return self.PAT.sub(rep, text)
 
@@ -162,7 +164,7 @@ add(("p0", "Very large landfills are major methane sources, but site decisions r
                pct(h["H3_P_power_npv_pos"]), pct(pwrow("planned expansion")["P_pos_all"]), n(h["pstar_gnc_q"][1], 2), n(h["pstar_gnc_mmbtu_q"][1], 0),
                n(h["H1_sc_star_q"][1], 2))))
 add(("h1", "Keywords"))
-add(("p0", "Landfill gas; Methane mitigation; Satellite constraint; Biomethane; Monte Carlo decision analysis; Techno-economic analysis; Argentina"))
+add(("p0", "Landfill gas; Methane mitigation; Satellite constraint; Biomethane; Monte Carlo decision analysis; Techno-economic analysis"))
 
 # ============================================================================================ 1 Introduction
 add(("h1", "1. Introduction"))
@@ -328,8 +330,7 @@ add(("p", "Inputs (Supplementary Table S2) are sampled by Latin hypercube [@McKa
           "not validate the model against site data, which Section 4.3 addresses separately." % NTEST))
 add(("h2", "3.7 Robustness design"))
 add(("p", "Beyond the three observation-error models, the analysis is repeated (120,000 draws each) with rank correlations induced by the "
-          "Iman–Conover method [@Iman1982] between gas and electricity prices, between the prices and the costs that move with them, among capital "
-          "costs, between the realized-price multiplier and logistics, and between $L_0$ and $f_{ss}$; with uniform instead of triangular marginals; "
+          "Iman–Conover method [@Iman1982] among prices, among costs and between $L_0$ and $f_{ss}$; with uniform marginals; "
           "with every prior widened by 50%; with the two structural cover alternatives; with contracted electricity; with a WACC; over a sweep of "
           "discount rates; and with expected credit revenue. Temporal variability is tested by replacing constant gas supply with a first-order-decay "
           "trajectory [@IPCC2006],"))
@@ -426,19 +427,15 @@ add(("p", "Representativeness is the larger uncertainty. The 2019–22 estimates
           "to %s. For the efficiency to reach 0.5, the surface emission would have to be approximately %s t h⁻¹, a factor of %s below the satellite median, and "
           "for 0.3 approximately %s t h⁻¹. None of these changes the sign of any scenario's median NPV, and the probability that a cover reduces net emissions "
           "remains between %s and %s (Table 3). The inferred efficiency of approximately %s is therefore conditional on the model structure and on the "
-          "satellite estimate; it is not evidence that the operator's reported capture is wrong, because the reported flows are inputs and what the "
-          "constraint implies is a generation, and so an uncaptured fraction, that is large relative to them."
+          "satellite estimate; it is not evidence that the operator's reported capture is wrong."
           % (n(SS[sat_keys[-1]]["eta_c"][1], 2), n(SS[sat_keys[0]]["eta_c"][1], 2), n(SS["sigma_ln 1.00"]["eta_c"][1], 2),
              qc(SS["sigma_ln 1.00"]["eta_c"]), n(need["0.50"], 1), n(M.SAT_MED / need["0.50"], 0), n(need["0.30"], 0),
              pct(min(v["P_cover"] for v in list(SS.values()) + list(GV.values()) + list(JT.values()))),
              pct(max(v["P_cover"] for v in list(SS.values()) + list(GV.values()) + list(JT.values()))), n(g["eta_c"][1], 2))))
-add(("p", "Measured collection efficiencies at individual sites are not directly comparable. Field studies that express capture as recovered over "
-          "modeled generation, for example nine cells at three landfills [@Spokas2006], and a compilation of in-situ measurements [@Giordano2024] find "
-          "that the default efficiencies used in inventories tend to overstate capture, with measured emissions on average two to three times the "
-          "emissions the defaults imply [@Giordano2024]; critical reviews caution against transferring efficiencies between sites with different "
-          "covers, ages and wellfield operation [@Saul2026]. An efficiency of %s at a very large, young-cover site with a rapidly growing "
-          "capture system is therefore not implausible in kind, but it would lie far outside the efficiencies commonly assumed, and we do not use "
-          "any published value as a prior for Norte III." % n(g["eta_c"][1], 2)))
+add(("p", "Measured collection efficiencies are not directly comparable between sites. Field studies find that the default efficiencies of inventories tend to overstate capture "
+          "[@Spokas2006;@Giordano2024], and reviews caution against transferring efficiencies between sites with different covers, ages and wellfield operation [@Saul2026]. An efficiency of %s at a very "
+          "large, young-cover site with a rapidly growing capture system is therefore not implausible in kind, but it lies far outside the efficiencies commonly assumed, and no published value "
+          "is used as a prior for Norte III." % n(g["eta_c"][1], 2)))
 add(("fig", "Fig2_identifiability.png", "Fig. 2. Identifiability and independent check. (a) Posterior draws of generation and 2022 efficiency lie on the curve "
             "η = C/G; the satellite emission fixes the position along it. (b) Posterior 2022 efficiency under alternative generation histories (median, P5–P95). "
             "(c) 2025–26 efficiency against the scaling of the 2022 satellite emission, and with both observations. (d) Predicted 2025–26 surface emission "
@@ -483,9 +480,7 @@ add(("p", "Three explanations are possible and cannot be separated with the data
           "2022 estimate requires generation to fall to %s of its 2022 value within approximately three years (the prior of $g_t$ is 0.95 to 1.15) while about "
           "18,000 t d⁻¹ continue to arrive, which is not credible for generation alone, although an emission reduction from interventions that are not in the model's baseline, such as "
           "new covers or leak repair since 2022, cannot be excluded. Second, the two data sets differ in instrument, "
-          "retrieval algorithm, overpass time and averaging convention: the 2025 value is an average of overpass rates over sites observed on at "
-          "least two dates [@STOP2026], the 2022 estimates are retrievals at the time of observation, and neither is a facility-wide annual mean; "
-          "persistent large emitters are the population on which airborne and satellite surveys agree best, but facility-scale agreement across "
+          "retrieval algorithm, overpass time and averaging convention, and neither is a facility-wide annual mean; facility-scale agreement across "
           "methods is poor in general [@Dogniaux2025]. Third, the model's structure or priors may be wrong, for example the oxidation fraction "
           "or the assumption that the reported flows are complete. When both observations are used with their stated errors, the posterior surface "
           "emission is %s t h⁻¹ in 2022 and %s t h⁻¹ in 2025–26, and the efficiency in 2025–26 is %s; the 2025 observation alone is %s, and "
@@ -600,9 +595,8 @@ add(("p", "The comparison of a conventional photovoltaic array with the experime
           "(Fig. S2), because the coating's performance priors are unvalidated. Conventional PV has a positive NPV in %s of draws, with a median LCOE of "
           "US$%s per MWh, above the merchant value of electricity because of the landfill foundation premium, the capital premium and the discount "
           "rate. The coating is cheaper in %s of draws under deliberately wide priors, a property of those priors; the transferable result is the break-even "
-          "efficiency $\\eta^*$, with a median of %s, exceeding 10%% in %s of draws. The comparison illustrates why a speculative surface-energy "
-          "technology should not displace proven collection measures: the efficiency it would have to demonstrate is a measurable condition, and "
-          "until it is met the area is better used for the capture that Sections 4.4 and 4.5 evaluate."
+          "efficiency $\\eta^*$, with a median of %s, exceeding 10%% in %s of draws. Until that efficiency is demonstrated, the area is better used "
+          "for the capture that Sections 4.4 and 4.5 evaluate."
           % (pct(h["H2_P_conv_npv_pos"], 1), q3(h["H2_lcoe_conv_q"]), pct(h["H2_P_paint_lcoe_lower"]), pct(h["H2_eta_star_q"][1], 1), pct(h["H2_P_eta_star_gt_10pct"]))))
 add(("h2", "4.9 Abatement cost"))
 add(("p", "Median levelised abatement costs are low in absolute terms: US$%s (S2), %s (S1), %s (S7) and %s (S6b) per tCO₂e at GWP100 (Fig. 6). "
@@ -660,18 +654,6 @@ add(("table", "Table 7. Robustness of the headline quantities (medians unless st
      [3.0, 0.7, 0.8, 0.8, 0.8, 0.8, 0.8, 0.6, 0.9, 0.7]))
 add(("fig", "Fig9_robustness.png", "Fig. 9. Headline quantities under the observation-error models (blue), without the satellite constraint (grey) and "
             "under the other robustness variants (green); the dotted line marks the base case.", 6.6))
-add(("h2", "4.13 Physical consistency: methane, carbon and energy balances"))
-bm = P["balances_median"]
-add(("p", "In every scenario the methane, carbon and energy balances close to round-off (relative residuals below 10⁻⁹), and the climate benefit "
-          "computed from the balances equals the incremental benefit to within 10⁻⁸ (Supplementary Section S4). For a median draw in the reference "
-          "case %s kt CH₄ yr⁻¹ is emitted, %s kt is oxidized in the cover soil and %s kt is destroyed in engines and flares; the measures shift methane "
-          "from the first category to the third, and upgrading exports %s kt CH₄ yr⁻¹ as biomethane (Supplementary Table S3 and Fig. S3). The "
-          "fossil-CO₂ credit of upgrading (displaced natural gas minus grid electricity used) is small against the methane term."
-          % (n(bm["S0"]["ch4_emit"] * M.RHO / 1e6), n(bm["S0"]["ch4_ox"] * M.RHO / 1e6), n(bm["S0"]["ch4_destroy"] * M.RHO / 1e6),
-             n(bm["S6"]["ch4_export"] * M.RHO / 1e6, 1))))
-add(("p", "The scorecard for the five hypotheses of the project white paper is in Supplementary Table S4: the cover hypothesis is supported "
-          "conditionally on $s_c > s_c^*$, the biomethane and buffer hypotheses are not supported, and the integrated configuration lowers lifecycle "
-          "emissions per tonne of waste by a small median %s." % pct(h["H5_rel_reduction_q"][1] / 100, 1)))
 
 # ============================================================================================ 5 Discussion
 add(("h1", "5. Discussion"))
@@ -689,14 +671,14 @@ add(("p", "Robust under the stated priors and every variant: no integrated measu
           "merchant and contracted tariffs. Not robust: the existence of surplus gas once the engine expansion is complete; the profitability of the "
           "engines under a low tariff, downtime and a declining supply; the ranking of the capture measures by abatement cost, which depends on the "
           "emission estimate; and the comparison of paint with PV, which depends on three unvalidated numbers. The break-even prices, $s_c^*$ and "
-          "$\\eta^*$ are the portable outputs: a reader with a dated quotation or a measured captured share can read the decision from them. We "
+          "$\\eta^*$ are the portable outputs, readable against a dated quotation or a measured captured share. We "
           "recommend that no capital be committed to coatings, buffers or upgrading before three measurements are in hand: a calibrated site flux "
           "survey to fix the collection efficiency, hourly gas flow and engine dispatch records to fix the true surplus, and a firm offtake or tariff "
           "quotation."))
-add(("p", "A field protocol would turn the check of Section 4.3 into a validation. (i) Facility-wide emission measurements on several days across seasons "
+add(("p", "A field protocol would turn the check of Section 4.3 into a validation. (i) Facility-wide emission measurements across seasons "
           "with an independent method, for example tracer-gas dispersion or airborne mass balance, reported with wind and sampling uncertainty. (ii) A "
-          "time series of satellite retrievals from more than one instrument with a common wind product, so that persistence and the diurnal and "
-          "seasonal cycle of the emission are measured and the 2019–22 and 2025 values can be compared on equal terms. (iii) Hourly biogas flow, "
+          "time series of satellite retrievals from more than one instrument with a common wind product, so that the 2019–22 and 2025 values can be "
+          "compared on equal terms. (iii) Hourly biogas flow, "
           "methane fraction and engine dispatch, which fix $C$ and the surplus directly. (iv) Pre-registration of the model's predictive interval "
           "for the surface emission (%s t h⁻¹, Section 4.1) before the measurements are made, and its comparison with them afterwards. The operator "
           "reports that it now uses drones with the Sniffer method to measure fugitive emissions [@Canal26]; publication of those data would serve "
@@ -731,9 +713,8 @@ add(("table", "Table 8. Conditions under which each conclusion fails.", ["Conclu
 add(("h1", "6. Conclusions"))
 for t in ("A methane balance constrained by satellite estimates at their own observation date implies a collection efficiency of approximately %s in 2022 "
           "and %s in 2025–26 at Norte III, increasing to %s when an independent 2025 observation is added. The efficiency is determined by the emission, "
-          "the oxidation fraction and the reported capture, not by the generation prior; it is conditional on the data and the model, is not a "
-          "measurement, and is not evidence about the accuracy of the operator's reported capture. The leading mitigation lever is collection "
-          "efficiency, worth approximately %s kt CH₄ yr⁻¹ per percentage point."
+          "the oxidation fraction and the reported capture, not by the generation prior; it is conditional on the data and the model and is not a "
+          "measurement. The leading mitigation lever is collection efficiency, worth approximately %s kt CH₄ yr⁻¹ per percentage point."
           % (n(g["eta22"][1], 2), n(g["eta_c"][1], 2), n(J1["eta_c"][1], 2), n(h["per_pp_eta_tCH4_yr_q"][1] / 1e3, 1)),
           "The model overpredicts the one independent 2025 emission observation by a factor of approximately %s and is externally unvalidated at facility "
           "scale; a field-measurement protocol is proposed to resolve this." % n(1.0 / VAL["ratio_obs_to_pred_median"], 1),
@@ -747,8 +728,7 @@ for t in ("A methane balance constrained by satellite estimates at their own obs
           "A selective cover helps only when the captured share of the gas it blocks exceeds a closed-form threshold (median %s); gross capture "
           "overstates the net benefit by approximately one-third." % n(h["H1_sc_star_q"][1], 2),
           "Every scenario closes its methane, carbon and energy balances, and the decision conclusions survive alternative generation histories, "
-          "satellite scaling and error, correlated inputs, alternative priors, structural cover alternatives, dated tax and financing assumptions, "
-          "time-varying gas supply and alternative climate-accounting choices."):
+          "satellite scaling and error, correlated inputs, structural cover alternatives, tax and financing assumptions and climate-accounting choices."):
     add(("num", t))
 
 # ============================================================================================ declarations
@@ -863,6 +843,11 @@ adds(("p0", "The automated test suite (python NorteIII_MC.py --test) contains %d
             "standard error." % NTEST))
 adds(("fig", "FigS1_convergence.png", "Fig. S1. Running probability of positive NPV for S6b across three independent seeds (resampled lognormal "
               "posterior; ESS in the legend).", 5.4))
+adds(("p0", "Balances and climate account. In every scenario the methane, carbon and energy balances close to round-off (relative residuals below 10⁻⁹), and the climate benefit "
+            "computed from the balances equals the incremental benefit to within 10⁻⁸. For a median draw in the reference case %s kt CH₄ yr⁻¹ is emitted, %s kt is oxidized in the cover soil "
+            "and %s kt is destroyed in engines and flares; the measures shift methane from the first category to the third, and upgrading exports %s kt CH₄ yr⁻¹ as biomethane (Table S3 and "
+            "Fig. S3). The fossil-CO₂ credit of upgrading (displaced natural gas minus grid electricity used) is small against the methane term."
+            % (n(bm["S0"]["ch4_emit"] * M.RHO / 1e6), n(bm["S0"]["ch4_ox"] * M.RHO / 1e6), n(bm["S0"]["ch4_destroy"] * M.RHO / 1e6), n(bm["S6"]["ch4_export"] * M.RHO / 1e6, 1))))
 adds(("h1", "S5. Scorecard for the research hypotheses"))
 TAB5 = [["H1: cover plus pressure-managed extraction lowers total emissions", "Supported conditionally: net reduction in %s of draws if $s_c > s_c^*$ "
          "(median %s); net benefit is %s of gross capture." % (pct(h["H1_P_cover_reduces_conv"]), n(h["H1_sc_star_q"][1], 2), pct(h["H1_gross_vs_net_ratio_median"]))],
@@ -879,8 +864,8 @@ adds(("table", "Table S4. Outcome of the five hypotheses of the project white pa
 
 
 # ============================================================================================ build
-def build(path, blocks, cit, with_refs=True, journal=False):
-    doc = E.Doc(cit, journal)
+def build(path, blocks, cit, with_refs=True, journal=False, line_numbers=True, eq_images=False):
+    doc = E.Doc(cit, journal, line_numbers, eq_images)
     num = 0
     for b in blocks:
         k = b[0]
@@ -912,6 +897,10 @@ def build(path, blocks, cit, with_refs=True, journal=False):
             doc.fig(os.path.join(FIG, b[1]), b[2], b[3])
         elif k == "table":
             doc.table(b[1], b[2], b[3], b[4] if len(b) > 4 else None, size=b[5] if len(b) > 5 else 16)
+        elif k == "pagebreak":
+            doc.pagebreak()
+        elif k == "caplist":
+            doc.caplist(b[1], b[2])
         elif k == "refs":
             doc.h1("References")
             for _, text in cit.entries():
@@ -981,6 +970,19 @@ def journal_blocks():
     return jm, si
 
 
+def submission_blocks(jm):
+    """Waste Management technical check (2026-11-04): tables each on a separate page at the end of the Word file, then the list of figure captions on its own page;
+    the figures themselves are uploaded as separate files (Fig1_..., Fig2_..., numbered) and are not placed in the Word file."""
+    text, tabs, figs = [], [], []
+    for b in jm:
+        (tabs if b[0] == "table" else figs if b[0] == "fig" else text).append(b)
+    out = list(text)
+    for t in tabs:
+        out += [("pagebreak",), t]
+    out += [("pagebreak",), ("caplist", "List of figure captions", [f[2] for f in figs])]
+    return out
+
+
 def scan_all(cit, blocks=None):
     for b in (blocks if blocks is not None else B + BS):
         for x in b[1:]:
@@ -1000,8 +1002,16 @@ if __name__ == "__main__":
     cit = Harvard(LIB)
     JB, JS = journal_blocks()
     scan_all(cit, JB + JS)
-    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v3.docx"), JB, cit, journal=True)
+    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v3.docx"), submission_blocks(JB), cit, journal=True)
     build(os.path.join(OUT, "NorteIII_Supplementary_Information_v3.docx"), JS, cit)
+    # complete manuscript for ChemRxiv: figures and tables in the text, no line numbers, equations as pictures (a Word-to-PDF conversion on the server mishandled Office Math)
+    build(os.path.join(OUT, "NorteIII_ChemRxiv_Manuscript.docx"), JB, cit, journal=False, eq_images=True)
+    # main figures for upload, with the figure number in the file name
+    import shutil
+    up = os.path.join(OUT, "figures_for_upload"); os.makedirs(up, exist_ok=True)
+    for f in sorted(os.listdir(FIG)):
+        if re.match(r"Fig[1-4]_", f):
+            shutil.copy(os.path.join(FIG, f), os.path.join(up, f))
     words = sum(len(b[1].split()) for b in B if b[0] in ("p", "p0", "num") and not b[1].startswith(("CRediT", "Declaration", "Funding", "Data and")))
     abstract = [b[1] for b in B if b[0] == "p0"][0]
     print("built; %d references; abstract %d words; text ~%d words" % (len(cit.used), len(abstract.split()), words))
