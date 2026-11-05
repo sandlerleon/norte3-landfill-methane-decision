@@ -507,9 +507,11 @@ add(("p", "S1 avoids a median %s kt CO₂e yr⁻¹ at a net present cost of %s M
              pct(h["H1_P_cover_reduces_coat"]), q3(h["H1_cover_only_ch4_conv"], 1, 1e-3), pct(h["H1_gross_vs_net_ratio_median"]),
              q3(h["H1_sc_star_q"], 2), pct(h["H1_P_sc_below_star"], 1), n(dict(P["sens_S2_ch4"])["s_c"], 2),
              pct(var("cover: redirected gas unoxidised")["P_cover"]), pct(var("cover: all oxidation lost under cover")["P_cover"]))))
-add(("fig", "Fig3_cover.png", "Fig. 3. Selective cover. (a) Net methane avoided by the cover alone (boxes P25–P75, whiskers P5–P95). (b) Simulated net "
-            "benefit or increase against barrier effectiveness and captured share, with the analytic break-even $s_c^*$ for three values of the "
-            "oxidation-loss parameter.", 6.2))
+add(("fig", "Fig3_cover.png", "Fig. 3. Selective cover. (a) Net methane avoided by the cover alone, for the conventional cover (blue) and the experimental coating "
+            "(orange); boxes P25–P75, line the median, whiskers P5–P95; the dashed line marks zero, and the figures above the panel are the probabilities "
+            "that the net effect is a benefit. (b) Simulated net benefit (green) or net increase (orange) against barrier effectiveness $\\varepsilon$ and "
+            "captured share $s_c$ of the blocked gas, with the analytic break-even $s_c^*$ for three values of the oxidation-loss parameter "
+            "$\\delta_{ox}$ (dotted 0.2, solid 0.6, dashed 1.0).", 6.2))
 add(("h2", "4.5 Scenario economics without credits"))
 add(("p", "None of the eight integrated intervention scenarios has a positive median incremental NPV under the assumed no-credit conditions "
           "(Fig. 4a; Table 4). The probability of a positive NPV is at most %s (S6b). Measures do not add: S6, which upgrades the gas captured by the "
@@ -526,8 +528,10 @@ add(("table", "Table 4. Scenario results, lognormal posterior (median, P5 to P95
               "median with 35% tax and 10-year depreciation; avoided emissions at GWP100; abatement cost in US$ per tCO₂e; last column P(NPV > 0) with a "
               "US$25 credit. PW: additional engines on the existing surplus (draws with surplus gas).",
      ["Scenario", "NPV", "P(NPV>0)", "After tax", "Avoided (kt CO₂e/yr)", "Abatement", "P(>0), US$25"], rows4, [0.8, 2.0, 0.9, 0.9, 1.8, 1.0, 1.0]))
-add(("fig", "Fig4_npv_scenarios.png", "Fig. 4. (a) Incremental NPV of the eight integrated interventions, lognormal posterior, no credit revenue (boxes "
-            "P25–P75, whiskers P5–P95). (b) NPV of additional engines on the existing surplus at merchant and contracted tariffs.", 6.4))
+add(("fig", "Fig4_npv_scenarios.png", "Fig. 4. Net present value (NPV). (a) Incremental NPV of the eight integrated interventions S1–S7 (defined in Table 1), "
+            "lognormal posterior, no credit revenue, in millions of real US dollars over 20 years; boxes P25–P75, line the median, whiskers P5–P95; "
+            "the dashed line marks zero, colors group similar measures, and P(>0) is the probability of a positive NPV. (b) NPV of additional engines on "
+            "the existing surplus at merchant and contracted tariffs.", 6.4))
 add(("h2", "4.6 Additional engines and biomethane: counterfactuals for the surplus gas"))
 add(("p", "The power alternative is reported separately because it is not an emission-reduction intervention but a competing use of gas that is "
           "already collected. Additional engines on the existing surplus have a positive NPV in %s of the draws with surplus gas at merchant tariffs "
@@ -976,7 +980,10 @@ def submission_blocks(jm):
     text, tabs, figs = [], [], []
     for b in jm:
         (tabs if b[0] == "table" else figs if b[0] == "fig" else text).append(b)
+    import re as _re
+    tabs.sort(key=lambda t: int(_re.match(r"Table (\d+)", t[1]).group(1)))
     out = list(text)
+    out += [("pagebreak",), ("caplist", "List of table captions", [t[1] for t in tabs])]
     for t in tabs:
         out += [("pagebreak",), t]
     out += [("pagebreak",), ("caplist", "List of figure captions", [f[2] for f in figs])]
