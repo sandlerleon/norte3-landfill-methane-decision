@@ -78,9 +78,10 @@ para("A generative AI tool (Claude, Anthropic) assisted with source gathering, c
      "concept examined in one scenario originates from my own unpublished competition submission, which is disclosed in the manuscript.")
 para("Author affiliation and email address. I am an independent researcher with no current institutional affiliation, and I am the sole author. My contact "
      "and corresponding-author address is the alumni email address provided by my former university (Swinburne University of Technology, "
-     "leon.sandler@alumni.swinburne.edu); it identifies me as a graduate and does not indicate a current affiliation or employer. The manuscript follows the journal's "
-     "layout requirements: 12 pt type, double spacing, 2.54 cm margins, line and page numbers, and no more than eight figures and tables in the main text, "
-     "the remaining tables and figures being in the Supplementary Information.")
+     "leon.sandler@alumni.swinburne.edu); it identifies me as a graduate and does not indicate a current affiliation or employer. As the first, corresponding and only author I cannot give a "
+     "workplace email address, because I have no workplace; this is the explanation that the journal's guidance asks for when a workplace address is not used, and I ask that the alumni address be accepted. "
+     "The manuscript follows the journal's layout requirements: 12 pt type, double spacing, 2.54 cm margins, line and page numbers, and the figures and tables placed next to the relevant text (none is uploaded separately), "
+     "with no more than eight figures and tables in the main text, the remaining tables and figures being in the Supplementary Information.")
 para("Thank you for considering this submission.")
 para("Sincerely,")
 para("Leon Sandler", True)

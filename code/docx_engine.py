@@ -244,6 +244,8 @@ class Doc:
             t = OxmlElement("w:tab"); t.set(qn("w:val"), val); t.set(qn("w:pos"), str(pos)); tabs.append(t)
         pPr.append(tabs)
         _spacing(par, 120, 120)
+        if self.j:
+            self._ds(par, 0, 0)                      # display equations are double-spaced like the text
         par.paragraph_format.keep_together = True
         r = par.add_run(); r.add_tab()
         par._p.append(omml.tex_to_omml(tex))

@@ -1009,16 +1009,11 @@ if __name__ == "__main__":
     cit = Harvard(LIB)
     JB, JS = journal_blocks()
     scan_all(cit, JB + JS)
-    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v3.docx"), submission_blocks(JB), cit, journal=True)
-    build(os.path.join(OUT, "NorteIII_Supplementary_Information_v3.docx"), JS, cit)
+    # third technical check (2026-11-05): figures and tables next to the relevant text, nothing uploaded separately; double-spaced, line and page numbers
+    build(os.path.join(OUT, "NorteIII_Waste_Management_Manuscript_v4.docx"), JB, cit, journal=True)
+    build(os.path.join(OUT, "NorteIII_Supplementary_Information_v4.docx"), JS, cit, journal=True)
     # complete manuscript for ChemRxiv: figures and tables in the text, no line numbers, equations as pictures (a Word-to-PDF conversion on the server mishandled Office Math)
     build(os.path.join(OUT, "NorteIII_ChemRxiv_Manuscript.docx"), JB, cit, journal=False, eq_images=True)
-    # main figures for upload, with the figure number in the file name
-    import shutil
-    up = os.path.join(OUT, "figures_for_upload"); os.makedirs(up, exist_ok=True)
-    for f in sorted(os.listdir(FIG)):
-        if re.match(r"Fig[1-4]_", f):
-            shutil.copy(os.path.join(FIG, f), os.path.join(up, f))
     words = sum(len(b[1].split()) for b in B if b[0] in ("p", "p0", "num") and not b[1].startswith(("CRediT", "Declaration", "Funding", "Data and")))
     abstract = [b[1] for b in B if b[0] == "p0"][0]
     print("built; %d references; abstract %d words; text ~%d words" % (len(cit.used), len(abstract.split()), words))
